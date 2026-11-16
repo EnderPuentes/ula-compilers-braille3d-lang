@@ -100,7 +100,7 @@ make build
 | `docs/` | documentation, starting with [`docs/architecture.md`](docs/architecture.md) |
 | `config.mk` | compiler and DeSiGNAR settings |
 | `Makefile` | build, lint, format and test targets |
-| `.github/workflows/` | release automation, see [`docs/releasing.md`](docs/releasing.md) |
+| `.github/` | release workflows and their configuration, see [`docs/releasing.md`](docs/releasing.md) |
 | `.clang-format` | code style |
 
 ## Make targets
@@ -117,4 +117,4 @@ make build
 
 ## Releases
 
-Releases are created automatically from Conventional Commits with release-please. See [`docs/releasing.md`](docs/releasing.md) for the process and the rules.
+Releases are created automatically from Conventional Commits with release-please. The version, the tags and `CHANGELOG.md` are generated, and the workflows use a personal access token stored as the repository secret `RELEASE_PLEASE_TOKEN`. See [`docs/releasing.md`](docs/releasing.md) for the process, the token and the rules.

@@ -40,7 +40,7 @@ The interpreter uses [DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR), a C++17 li
 
 The `pre-push` hook runs `make build`, `make lint` and `make test`.
 
-Releases are automated with release-please (`.github/workflows/release-please.yml`). See `docs/releasing.md`.
+Releases are automated with release-please (`.github/workflows/release-please.yml`), and `develop` is kept up to date with `main` after each release (`.github/workflows/sync-develop-from-main.yml`). See `docs/releasing.md`.
 
 ## Open points
 
