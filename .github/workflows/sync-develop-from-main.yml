@@ -1,0 +1,42 @@
+name: Sync develop from main
+
+# A release pull request changes CHANGELOG.md, the version manifest and
+# include/version.hpp on main only. This keeps develop up to date with them.
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-develop
+  cancel-in-progress: false
+
+jobs:
+  sync-develop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge main into develop
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::The secret RELEASE_PLEASE_TOKEN is not set. See docs/releasing.md."
+            exit 1
+          fi
+
+          ahead=$(gh api "repos/${{ github.repository }}/compare/develop...main" --jq '.ahead_by')
+          echo "main is $ahead commit(s) ahead of develop"
+
+          if [ "$ahead" = "0" ]; then
+            echo "develop is already up to date."
+            exit 0
+          fi
+
+          gh api --method POST "repos/${{ github.repository }}/merges" \
+            -f base='develop' \
+            -f head='main' \
+            -f commit_message='chore: sync main into develop'
+          echo "develop is now up to date with main."
