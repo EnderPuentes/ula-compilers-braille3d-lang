@@ -2,6 +2,51 @@
 
 Un intérprete en C++ para el lenguaje braille3d, desarrollado para la cátedra universitaria de Compiladores.
 
+## Sobre el proyecto
+
+braille3d es un lenguaje para describir placas con texto y relieve braille listas para impresión 3D. El intérprete se construye por etapas, y cada una se entrega como una fase. La arquitectura general está en [`docs/architecture.md`](docs/architecture.md).
+
+## Fases de entrega
+
+### Fase 1: analizador léxico
+
+**Fecha de entrega:** 16 de noviembre de 2026
+
+El analizador léxico es la primera etapa del intérprete. Lee el texto de un archivo `.b3d` y lo convierte en una secuencia de tokens, que es la entrada del analizador sintáctico. Está construido con la clase `Designar::Lexer` de la biblioteca [DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR).
+
+**Qué reconoce**
+
+- 22 palabras reservadas (`PLATE`, `BRAILLE`, `TEXT`, `TEMPLATE`, `USE`, `WIDTH`, ...) y la unidad `mm`.
+- Identificadores, números enteros y decimales, y cadenas de texto con tildes y `ñ`.
+- El operador `=` y los delimitadores `{ } ( ) , ;`.
+- Comentarios de una línea con `#` y espacios en blanco, que se descartan antes de entregar los tokens.
+
+**Cómo funciona**
+
+La clase `LexerB3D` registra todas las reglas en su constructor. `tokenize()` devuelve los tokens sin espacios ni comentarios, y `tokenize_raw()` devuelve todos, para depuración. `Designar::Lexer` consume en cada posición el lexema más largo que acepte alguna regla y, si dos reglas empatan, gana la registrada primero. Por eso las palabras reservadas se registran antes que los identificadores. DeSiGNAR no tiene clases de caracteres como `[a-z]` ni negaciones como `[^"]`, así que los rangos se escriben como alternaciones explícitas.
+
+**Estructura**
+
+| Archivo | Contenido |
+| --- | --- |
+| [`include/braille3d/lexer.hpp`](include/braille3d/lexer.hpp) | declaración de la clase `LexerB3D` |
+| [`src/lexer.cpp`](src/lexer.cpp) | reglas de los tokens y modos de escaneo |
+| [`src/main.cpp`](src/main.cpp) | programa que imprime los tokens de un archivo |
+| [`examples/`](examples/README.md) | programas `.b3d` de prueba |
+
+**Cómo probarlo**
+
+```bash
+make build
+./build/braille3d examples/health-center.b3d
+```
+
+**Para más información**
+
+- [Implementación del analizador léxico](docs/lexer.md): clase, reglas, resolución de conflictos y adaptación a DeSiGNAR.
+- [Sintaxis del lenguaje](docs/syntax.md): cómo escribir un archivo `.b3d`.
+- [Ejemplos](examples/README.md): qué prueba cada programa.
+
 ¿Primera vez aquí? Empieza con [`docs/getting-started.md`](docs/getting-started.md). Las reglas del proyecto están en [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Requisitos previos
