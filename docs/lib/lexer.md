@@ -63,6 +63,7 @@ Para mantener la modularidad y limpieza en el código fuente, se definieron cons
 | **`UNIT_MM`** | `"mm"` | Token de unidad de medida en milímetros para las dimensiones.|
 
 * 3. **Delimitadores, Asignación y Símbolos de Puntuación:**
+
 | Token(Identificador en C++) | Lexema / Patrón | Descripción |
 | :-------------------------- | :-------------- | :---------- |
 | **`ASSIGN`** | `"="`   | Operador de asignación para propiedades o atributos.|
@@ -81,6 +82,7 @@ Para mantener la modularidad y limpieza en el código fuente, se definieron cons
 | **`WS`** | `"( |\\t|\\n|\\r)( |\\t|\\n|\\r)*"` | Espacios en blanco, tabulaciones y saltos de línea ignorados por el lexer por el método `tokenize()`.|
 
 * 5. **Tokens de Datos y Literales:**
+
 | Token (Identificador) | Patrón / Expresión Regular | Descripción | Ejemplo |
 | :---------------------| :--------------------------| :---------- | :------ |
 | **`ID`** | `[a-zA-Z_][a-zA-Z0-9_]*`|Identificadores para nombres de componentes o referencias.| `centro_salud`|
