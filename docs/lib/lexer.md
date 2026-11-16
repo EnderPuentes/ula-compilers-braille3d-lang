@@ -74,6 +74,7 @@ Para mantener la modularidad y limpieza en el código fuente, se definieron cons
 | **`SEMICOLON`** | `";"` | Delimitador de fin de sentencia o instrucción.|
 
 * 4. **Elementos Omitidos:**
+
 | Token (Identificador en C++) | Expresión Regular/ Patrón | Descripción |
 | :--------------------------- | :------------------------ | :---------- |
 | **`COMMENT`** | `"#" + comment_char + "*"`|Comentarios de una línea comienzan con `#` y admiten texto, espacios, símbolos como `\|`, tildes (`á`, `é`, `í`, `ó`, `ú`), tambien (`ñ`, `Ñ`), omitidos en el análisis estándar, pero accesibles mediante `tokenize_raw()`.|
@@ -86,7 +87,7 @@ Para mantener la modularidad y limpieza en el código fuente, se definieron cons
 | **`NUMBER`** |`[0-9]+(\.[0-9]+)?`| Parte Entera (`[0-9]+`) y Parte Decimal Opcional (`(\.[0-9]+)?`),Valores numéricos enteros (con soporte para *Maximal Munch*).| `50`, `3.3`|
 | **`STRING`** | `"[^"]*"` | Literales de texto encerrados entre comillas dobles (incluye tildes, ñ y caracteres especiales en español).| `"Institución para Niños y Niñas"`|
 
-* 6. **Flujo Limpio:**
+* 5. **Flujo Limpio:**
 
 Para evitar conflictos entre tokens con prefijos similares o patrones solapados, el analizador aplica dos principios fundamentales:
 
