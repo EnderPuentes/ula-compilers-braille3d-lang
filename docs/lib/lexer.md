@@ -79,7 +79,7 @@ Para mantener la modularidad y limpieza en el código fuente, se definieron cons
 | Token (Identificador en C++) | Expresión Regular/ Patrón | Descripción |
 | :--------------------------- | :------------------------ | :---------- |
 | **`COMMENT`** | `"#" + comment_char + "*"`|Comentarios de una línea comienzan con `#` y admiten texto, espacios, símbolos como `\|`, tildes (`á`, `é`, `í`, `ó`, `ú`), tambien (`ñ`, `Ñ`), omitidos en el análisis estándar, pero accesibles mediante `tokenize_raw()`.|
-| **`WS`** | `"( |\\t|\\n|\\r)( |\\t|\\n|\\r)*"` | Espacios en blanco, tabulaciones y saltos de línea ignorados por el lexer por el método `tokenize()`.|
+| **`WS`** | `"( |\\t|\\n|\\r)( |\\t|\\n|\\r)*"`| Espacios en blanco, tabulaciones y saltos de línea ignorados por el lexer por el método `tokenize()`.|
 
 * 5. **Tokens de Datos y Literales:**
 
