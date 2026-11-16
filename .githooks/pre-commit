@@ -1,6 +1,8 @@
 #!/bin/sh
 # Cheap checks only: secret grep and clang-format on staged C/C++ files.
 # Build, lint and tests belong to pre-push.
+. "$(dirname "$0")/scripts/branch-policy.sh" || exit 1
+
 staged=$(git diff --cached --name-only --diff-filter=ACM)
 [ -z "$staged" ] && exit 0
 

@@ -1,6 +1,8 @@
 #!/bin/sh
 # Build, lint and tests run here and nowhere else (never in CI).
 # Runs the Makefile targets 'build', 'lint' and 'test' that exist, in that order.
+. "$(dirname "$0")/scripts/branch-policy.sh" || exit 1
+
 [ -f Makefile ] || [ -f makefile ] || [ -f GNUmakefile ] || exit 0
 
 has_target() { make -n "$1" >/dev/null 2>&1; }
