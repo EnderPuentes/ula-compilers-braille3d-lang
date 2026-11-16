@@ -2,6 +2,8 @@
 
 A C++ interpreter for the braille3d language, built for the university compilers course.
 
+New here? Start with [`docs/getting-started.md`](docs/getting-started.md). The rules of the project are in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
 ## Prerequisites
 
 Install these tools **before** anything else. This README assumes they are already on your machine and does not install them.
@@ -97,7 +99,8 @@ make build
 | `src/` | implementation files |
 | `include/` | project headers |
 | `test/` | tests, named `<name>.test.cpp` |
-| `docs/` | documentation, starting with [`docs/architecture.md`](docs/architecture.md) |
+| `docs/` | documentation: [`getting-started.md`](docs/getting-started.md), [`architecture.md`](docs/architecture.md), [`releasing.md`](docs/releasing.md) |
+| `CONTRIBUTING.md` | how to contribute: branches, commits, checks and pull requests |
 | `config.mk` | compiler and DeSiGNAR settings |
 | `Makefile` | build, lint, format and test targets |
 | `.github/` | release workflows and their configuration, see [`docs/releasing.md`](docs/releasing.md) |
