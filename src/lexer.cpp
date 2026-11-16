@@ -65,7 +65,7 @@ namespace Braille3D
         // Usamos el espacio literal y la barra vertical para evitar conflictos de autómata
         std::string comment_char = "(" + str_char + "| )";
         lexer_.add_token("COMMENT",  "#" + comment_char + "*");
-        lexer_.add_token("WS", "( |\\t|\\n|\\r)( |\\t|\\n|\\r)*");
+        lexer_.add_token("WS", "( |\t|\n|\r)( |\t|\n|\r)*");
     }
 
     //Devolvemos absolutamente todos los tokens del lenguaje 
