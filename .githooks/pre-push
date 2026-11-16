@@ -1,0 +1,19 @@
+#!/bin/sh
+# Build, lint and tests run here and nowhere else (never in CI).
+# Runs the Makefile targets 'build', 'lint' and 'test' that exist, in that order.
+. "$(dirname "$0")/scripts/branch-policy.sh" || exit 1
+
+[ -f Makefile ] || [ -f makefile ] || [ -f GNUmakefile ] || exit 0
+
+has_target() {
+  out="$(make -n "$1" 2>&1)" || return 1
+  case "$out" in *"Nothing to be done"*) return 1 ;; esac
+}
+
+for t in build lint test; do
+  if has_target "$t"; then
+    echo "pre-push: make $t"
+    make "$t" || { echo "pre-push: 'make $t' failed; push aborted." >&2; exit 1; }
+  fi
+done
+exit 0
