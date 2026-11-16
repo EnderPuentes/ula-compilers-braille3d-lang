@@ -100,6 +100,7 @@ make build
 | `docs/` | documentation, starting with [`docs/architecture.md`](docs/architecture.md) |
 | `config.mk` | compiler and DeSiGNAR settings |
 | `Makefile` | build, lint, format and test targets |
+| `.github/workflows/` | release automation, see [`docs/releasing.md`](docs/releasing.md) |
 | `.clang-format` | code style |
 
 ## Make targets
@@ -113,3 +114,7 @@ make build
 | `make test` | builds and runs every `test/*.test.cpp` |
 | `make check-deps` | checks the compiler and DeSiGNAR |
 | `make clean` | removes `build/` |
+
+## Releases
+
+Releases are created automatically from Conventional Commits with release-please. See [`docs/releasing.md`](docs/releasing.md) for the process and the rules.
