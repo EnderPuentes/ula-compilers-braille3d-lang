@@ -1,19 +1,19 @@
 PLATE {
-    # Dimensiones
+    # Dimensions
     WIDTH = 50mm;
     HEIGHT = 120mm;
     THICKNESS = 4mm;
     MARGIN = 10mm;
     MATERIAL = PLA;
     
-    # Texto visual
+    # Visible text
     TEXT {
         CONTENT = "CENTRO DE SALUD";
         POSITION = CENTER;
         ORIENTATION = VERTICAL;
     }
     
-    # Texto en relieve Braille
+    # Braille relief
     BRAILLE {
         CONTENT = "CENTRO DE SALUD";
         RELIEF = 0.6mm;
