@@ -28,11 +28,11 @@ Para mantener la modularidad y limpieza en el código fuente, se definieron cons
 
 |  Constante  |     Expresión   |             Descripción                    |
 | :-----------| :-------------- | :----------------------------------------- |
-| **`LOWER`** | `(a|b|c|...|z)` | Conjunto de letras minúsculas del alfabeto.|
-| **`UPPER`** | `(A|B|C|...|Z)` | Conjunto de letras mayúsculas del alfabeto.|
-| **`DIGIT`** | `(0|1|2|3|4|5|6|7|8|9)`| Dígitos numéricos individuales.     |
-| **`MIX`** | `(LOWER \| UPPER \| _)`| Agrupa letras (mayúsculas/minúsculas) y el guion bajo. Base para los `ID`.|
-| **`ALNUM`** | `(MIX \| DIGIT)` | Caracteres alfanuméricos combinados con guion bajo.|
+| **`LOWER`** | (a|b|c|...|z) | Conjunto de letras minúsculas del alfabeto.|
+| **`UPPER`** | (A|B|C|...|Z) | Conjunto de letras mayúsculas del alfabeto.|
+| **`DIGIT`** | (0|1|2|3|4|5|6|7|8|9)| Dígitos numéricos individuales.     |
+| **`MIX`** | (LOWER \| UPPER \| _)| Agrupa letras (mayúsculas/minúsculas) y el guion bajo. Base para los `ID`.|
+| **`ALNUM`** | (MIX \| DIGIT) | Caracteres alfanuméricos combinados con guion bajo.|
 
 * 2. **Palabras Reservadas y Unidades:**
 
