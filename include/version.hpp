@@ -3,7 +3,7 @@
 
 namespace braille3d
 {
-constexpr char version[] = "0.0.0"; // x-release-please-version
+    constexpr char version[] = "0.0.0"; // x-release-please-version
 }
 
 #endif
