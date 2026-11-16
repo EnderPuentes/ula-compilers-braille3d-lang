@@ -99,8 +99,7 @@ make build
 | `src/` | implementation files |
 | `include/` | project headers |
 | `test/` | tests, named `<name>.test.cpp` |
-| `docs/` | documentation: [`getting-started.md`](docs/getting-started.md), [`architecture.md`](docs/architecture.md), [`releasing.md`](docs/releasing.md) |
-| `CONTRIBUTING.md` | how to contribute: branches, commits, checks and pull requests |
+| `docs/` | documentation: [`getting-started.md`](docs/getting-started.md), [`architecture.md`](docs/architecture.md), [`lexer.md`](docs/lib/lexer.md), [`examples.md`](docs/examples/examples.md), [`releasing.md`](docs/releasing.md) || `CONTRIBUTING.md` | how to contribute: branches, commits, checks and pull requests |
 | `config.mk` | compiler and DeSiGNAR settings |
 | `Makefile` | build, lint, format and test targets |
 | `.github/` | release workflows and their configuration, see [`docs/releasing.md`](docs/releasing.md) |
@@ -121,3 +120,7 @@ make build
 ## Releases
 
 Releases are created automatically from Conventional Commits with release-please. The version, the tags and `CHANGELOG.md` are generated, and the workflows use a personal access token stored as the repository secret `RELEASE_PLEASE_TOKEN`. See [`docs/releasing.md`](docs/releasing.md) for the process, the token and the rules.
+
+## License
+
+This project is distributed under the academic terms of use and copyright detailed in [`LICENSE.md`](LICENSE.md).

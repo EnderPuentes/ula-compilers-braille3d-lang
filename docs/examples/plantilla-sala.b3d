@@ -1,0 +1,46 @@
+### 2. `plantilla-sala.b3d` (Reutilización de plantillas para FARMACIA y LABORATORIO)
+# Plantilla común para las placas de las salas
+TEMPLATE sala {
+    WIDTH = 50mm;
+    THICKNESS = 4mm;
+    MARGIN = 10mm;
+    MATERIAL = PLA;
+}
+
+# Placa horizontal de la FARMACIA
+PLATE {
+    USE sala;
+    WIDTH = 120mm;
+    HEIGHT = 50mm;
+    
+    TEXT {
+        CONTENT = "FARMACIA";
+        POSITION = CENTER;
+        ORIENTATION = HORIZONTAL;
+    }
+    
+    BRAILLE {
+        CONTENT = "FARMACIA";
+        RELIEF = 0.6mm;
+        POSITION = CENTER;
+    }
+}
+
+# Placa de LABORATORIO
+PLATE {
+    USE sala;
+    WIDTH = 120mm;
+    HEIGHT = 50mm;
+    
+    TEXT {
+        CONTENT = "LABORATORIO";
+        POSITION = CENTER;
+        ORIENTATION = HORIZONTAL;
+    }
+    
+    BRAILLE {
+        CONTENT = "LABORATORIO";
+        RELIEF = 0.6mm;
+        POSITION = CENTER;
+    }
+}
