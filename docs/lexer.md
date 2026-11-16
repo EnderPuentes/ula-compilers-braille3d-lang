@@ -126,6 +126,11 @@ En la implementación del programa principal (`src/main.cpp`), para mostrar el f
 
 4. **Validación y notificación léxica:** Mediante un bloque `try-catch`, el programa evalúa el escaneo. Si no se detectan anomalías, se notifica que el archivo no posee errores léxicos y que el flujo es válido para el Parser; de lo contrario, captura y reporta el error léxico o de lectura de archivo.
 
+### 5. Pruebas automáticas
+
+El lexer tiene sus pruebas en `test/lexer.test.cpp`. Comprueban las palabras reservadas, los números y la unidad, los identificadores, las cadenas con tildes y `ñ`, los delimitadores, los espacios y comentarios, los errores léxicos y que los programas de `examples/` se analicen sin error. Se ejecutan con `make test`. La guía completa, con cómo ejecutar una sola prueba y cómo añadir otra, está en [`testing.md`](testing.md).
+
+
 ---
 
 ## Ejecución de los ejemplos de prueba
@@ -159,7 +164,7 @@ make build
 ## Estructura del Directorio
 
 ```text
-interpreter/
+ula-compilers-braille3d-lang/
 ├── Makefile
 ├── config.mk
 ├── README.md
@@ -170,7 +175,8 @@ interpreter/
 │   ├── lexer.cpp
 │   └── main.cpp
 ├── test/
-│   └── prerequisites.test.cpp
+│   ├── prerequisites.test.cpp
+│   └── lexer.test.cpp
 ├── examples/
 │   ├── health-center.b3d
 │   ├── room-template.b3d
@@ -178,7 +184,8 @@ interpreter/
 │   └── README.md
 └── docs/
     ├── lexer.md
-    └── syntax.md
+    ├── syntax.md
+    └── testing.md
 ```
 
 | Directorio   | Descripción |

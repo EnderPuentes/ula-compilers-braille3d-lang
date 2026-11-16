@@ -130,7 +130,7 @@ make test          # compila y ejecuta cada test/*.test.cpp contra DeSiGNAR
 
 Cada comprobación se detiene en el primer problema y lo nombra: el compilador, las cabeceras de DeSiGNAR, `libDesignar.a`, o un test que no compila (estándar incorrecto, o DeSiGNAR compilado con otro compilador).
 
-Los tests viven en `test/` y se llaman `<nombre>.test.cpp`; cada uno es un programa que termina con código 0 cuando pasa. `test/prerequisites.test.cpp` es el test básico de requisitos: inserta y busca un valor en un `AVLTree` de DeSiGNAR, así que solo pasa si la biblioteca compila, enlaza y se ejecuta con tu compilador y tus rutas.
+Los tests viven en `test/` y se llaman `<nombre>.test.cpp`; cada uno es un programa que termina con código 0 cuando pasa. Cómo ejecutarlos, qué cubren y cómo añadir uno: [`docs/testing.md`](docs/testing.md). `test/prerequisites.test.cpp` es el test básico de requisitos: inserta y busca un valor en un `AVLTree` de DeSiGNAR, así que solo pasa si la biblioteca compila, enlaza y se ejecuta con tu compilador y tus rutas.
 
 ## Compilar y ejecutar
 
@@ -149,7 +149,7 @@ El programa recibe como argumento el archivo `.b3d` y muestra sus tokens. Los de
 | `include/` | cabeceras del proyecto (`include/braille3d/` para los módulos) |
 | `examples/` | programas `.b3d` de ejemplo |
 | `test/` | tests, con el nombre `<nombre>.test.cpp` |
-| `docs/` | documentación: [`getting-started.md`](docs/getting-started.md), [`architecture.md`](docs/architecture.md), [`lexer.md`](docs/lexer.md), [`syntax.md`](docs/syntax.md), [`releasing.md`](docs/releasing.md) |
+| `docs/` | documentación: [`getting-started.md`](docs/getting-started.md), [`architecture.md`](docs/architecture.md), [`lexer.md`](docs/lexer.md), [`syntax.md`](docs/syntax.md), [`testing.md`](docs/testing.md), [`releasing.md`](docs/releasing.md) |
 | `CONTRIBUTING.md` | cómo contribuir: ramas, commits, comprobaciones y pull requests |
 | `config.mk` | configuración del compilador y de DeSiGNAR |
 | `Makefile` | targets de compilación, lint, formato y tests |

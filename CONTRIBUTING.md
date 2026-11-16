@@ -97,7 +97,7 @@ int main()
 }
 ```
 
-Un cambio que añade comportamiento debe añadir o actualizar un test.
+Un cambio que añade comportamiento debe añadir o actualizar un test. La guía completa, con lo que cubre cada prueba y cómo ejecutar una sola, está en [`docs/testing.md`](docs/testing.md).
 
 ## Pull requests
 
