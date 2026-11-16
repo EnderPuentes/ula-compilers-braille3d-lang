@@ -11,6 +11,7 @@ Install these tools **before** anything else. This README assumes they are alrea
 | C++ compiler | `g++` 9+ or `clang++` 14+ | building the interpreter and DeSiGNAR | `g++ --version` or `clang++ --version` |
 | GNU `make` | any recent version | building the interpreter | `make --version` |
 | `git` | any recent version | cloning DeSiGNAR | `git --version` |
+| `clang-format` | any recent version (optional) | `make format`, `make format-check` and the pre-commit hook | `clang-format --version` |
 | CMake | 3.20+ | installing DeSiGNAR, **once** | `cmake --version` |
 | DeSiGNAR | 4.0.1 (commit `ab9099c`) | the data structures library | see [Install DeSiGNAR](#install-designar) |
 
@@ -81,3 +82,34 @@ make test          # builds and runs every test/*.test.cpp against DeSiGNAR
 Each check stops at the first problem and names it: the compiler, the DeSiGNAR headers, `libDesignar.a`, or a test that does not build (wrong standard, or DeSiGNAR built with a different compiler).
 
 Tests live in `test/` and are named `<name>.test.cpp`; each one is a program that exits with 0 when it passes. `test/prerequisites.test.cpp` is the basic prerequisites test: it inserts and searches one value in a DeSiGNAR `AVLTree`, so it only passes if the library compiles, links and runs with your compiler and paths.
+
+## Building and running
+
+```bash
+make build
+./build/braille3d
+```
+
+## Project layout
+
+| Path | Content |
+| --- | --- |
+| `src/` | implementation files |
+| `include/` | project headers |
+| `test/` | tests, named `<name>.test.cpp` |
+| `docs/` | documentation, starting with [`docs/architecture.md`](docs/architecture.md) |
+| `config.mk` | compiler and DeSiGNAR settings |
+| `Makefile` | build, lint, format and test targets |
+| `.clang-format` | code style |
+
+## Make targets
+
+| Target | What it does |
+| --- | --- |
+| `make build` | builds the interpreter into `build/braille3d` |
+| `make lint` | compiles every file with warnings as errors, without output files |
+| `make format` | formats every C++ file in place (needs `clang-format`) |
+| `make format-check` | checks the format without changing files (needs `clang-format`) |
+| `make test` | builds and runs every `test/*.test.cpp` |
+| `make check-deps` | checks the compiler and DeSiGNAR |
+| `make clean` | removes `build/` |
