@@ -13,13 +13,13 @@ BUILD_DIR   := build
 OBJ_DIR     := $(BUILD_DIR)/obj
 
 # --- Files ---------------------------------------------------------------
-SRCS      := $(wildcard $(SRC_DIR)/*.cpp)
+SRCS      := $(shell find $(SRC_DIR) -name '*.cpp' | sort)
 OBJS      := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
 DEPS      := $(OBJS:.o=.d)
 TARGET    := $(BUILD_DIR)/braille3d
 TEST_SRCS := $(wildcard $(TEST_DIR)/*.test.cpp)
 TEST_BINS := $(patsubst $(TEST_DIR)/%.test.cpp,$(BUILD_DIR)/%.test,$(TEST_SRCS))
-CXX_FILES := $(SRCS) $(wildcard $(INCLUDE_DIR)/*.hpp) $(TEST_SRCS)
+CXX_FILES := $(SRCS) $(shell find $(INCLUDE_DIR) -name '*.hpp' | sort) $(TEST_SRCS)
 
 CLANG_FORMAT ?= clang-format
 
