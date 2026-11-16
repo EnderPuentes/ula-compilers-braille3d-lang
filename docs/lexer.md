@@ -81,7 +81,7 @@ Para mantener la modularidad y la limpieza en el código fuente, se definieron c
 | Token (identificador en C++) | Expresión Regular / Patrón | Descripción |
 | :--------------------------- | :------------------------- | :---------- |
 | **`COMMENT`** | `"#" + comment_char + "*"` | Los comentarios de una línea comienzan con `#` y admiten los mismos caracteres que `STRING` (texto, espacios, símbolos como `\|` y tildes `á`, `é`, `í`, `ó`, `ú`, también `ñ` y `Ñ`), sin las comillas dobles: una `"` termina el comentario. Se omiten en el análisis estándar, pero son accesibles mediante `tokenize_raw()`. |
-| **`WS`**      | `"( \|\\t\|\\n\|\\r)( \|\\t\|\\n\|\\r)*"` | Espacios en blanco, tabulaciones y saltos de línea, ignorados por el lexer en el método `tokenize()`. |
+| **`WS`**      | `"( \|\t\|\n\|\r)( \|\t\|\n\|\r)*"` | Espacios en blanco, tabulaciones y saltos de línea, ignorados por el lexer en el método `tokenize()`. |
 
 5. **Tokens de Datos y Literales:**
 
@@ -103,11 +103,13 @@ Para evitar conflictos entre tokens con prefijos similares o patrones solapados,
 
 ### 3. Adaptación a DeSiGNAR
 
-La construcción de los autómatas finitos para el reconocimiento de patrones se realiza mediante la clase `Designar::Lexer`. **No se modificó la gramática léxica ni el conjunto de palabras reservadas** de la especificación formal planteada en los documentos de diseño previos. Únicamente se realizaron dos adaptaciones técnicas en la escritura interna de las expresiones regulares, para garantizar la compatibilidad total con el motor de autómatas de **DeSiGNAR**:
+La construcción de los autómatas finitos para el reconocimiento de patrones se realiza mediante la clase `Designar::Lexer`. **No se modificó la gramática léxica ni el conjunto de palabras reservadas** de la especificación formal planteada en los documentos de diseño previos. Únicamente se realizaron tres adaptaciones técnicas en la escritura interna de las expresiones regulares, para garantizar la compatibilidad total con el motor de autómatas de **DeSiGNAR**:
 
 1. **Expansión explícita de clases de caracteres:** El motor de expresiones regulares de DeSiGNAR construye los autómatas mediante operadores básicos de concatenación, alternancia (`|`) y cerradura de Kleene (`*`). Los rangos numéricos y alfabéticos se expandieron explícitamente a `(0|1|2|3|4|5|6|7|8|9)`, etc.
 
 2. **Soporte explícito de UTF-8 en cadenas:** Dado que DeSiGNAR no admite clases negadas del tipo `[^"]`, el patrón de `STRING` enumera explícitamente los caracteres permitidos, asegurando la integridad del texto: letras y dígitos, el espacio, el tabulador, los símbolos `- _ . , : ; ! ? ( ) / + * = # |` y los caracteres UTF-8 del español (`á é í ó ú Á É Í Ó Ú ñ Ñ ü Ü`). Otros caracteres, como `¿`, `¡`, `'`, `%`, `<` o `>`, aún no se admiten dentro de una cadena.
+
+3. **Secuencias de escape:** En las expresiones regulares de DeSiGNAR, la barra invertida (`\`) solo convierte en literal el carácter que la sigue (por ejemplo `\(`, `\{` o `\.`). El motor no define las secuencias `\n`, `\t` ni `\r`: `\n` es la letra `n`. Por eso la regla `WS` se escribe en C++ con una sola barra, `"\n"`, de modo que el compilador inserte el carácter real de salto de línea. Escrita como `"\\n"`, la regla recibiría la letra `n` y no reconocería los saltos de línea ni los tabuladores.
 
 ---
 
