@@ -7,7 +7,7 @@ Para redactar correctamente un archivo de diseño en `Braille3D-Lang`, se deben 
 * **Restricciones y Reglas:**
   * **Comentarios (`COMMENT`):** Comienzan con `#`, son omitidos por el compilador y admiten texto, espacios, símbolos (como `\|`), tildes (`á`, `é`, `í`, `ó`, `ú`), eñes (`ñ`, `Ñ`) y comillas dobles.
   * **Dimensiones y Unidades:** Todas las dimensiones numéricas deben incluir de forma estricta la unidad **`mm`** (ej. `50mm`, `0.6mm`).
-  * **Cadenas de Texto (`STRING`):** S oportan de forma nativa tildes y la letra Ñ (ejemplo: `"Institución De Salud"`, `"FARMACIA PARA NIÑOS"`).
+  * **Cadenas de Texto (`STRING`):** Soportan de forma nativa tildes y la letra Ñ (ejemplo: `"Institución De Salud"`, `"FARMACIA PARA NIÑOS"`).
   * **Bloques y Llaves:** Cada bloque (`PLATE`, `TEXT`, `BRAILLE`, `TEMPLATE`) se abre con `{` y se cierra con `}`, terminando cada sentencia interna con punto y coma (`;`).
 
 ---
