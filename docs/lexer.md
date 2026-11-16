@@ -53,6 +53,7 @@ Para mantener la modularidad y la limpieza en el código fuente, se definieron c
 | **`KW_MATERIAL`**    | `"MATERIAL"`    | Especifica el material de fabricación para la impresión 3D.          |
 | **`KW_POSITION`**    | `"POSITION"`    | Establece las coordenadas o la posición de los elementos.            |
 | **`KW_ORIENTATION`** | `"ORIENTATION"` | Define la orientación espacial del diseño.                           |
+| **`KW_CONTENT`**     | `"CONTENT"`     | Define el contenido (texto) de un bloque `TEXT` o `BRAILLE`.         |
 | **`KW_PLA`**         | `"PLA"`         | Valor del material termoplástico PLA.                                |
 | **`KW_PETG`**        | `"PETG"`        | Valor del material termoplástico PETG.                               |
 | **`KW_CENTER`**      | `"CENTER"`      | Valor de alineación o posición central.                              |

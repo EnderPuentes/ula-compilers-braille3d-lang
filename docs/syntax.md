@@ -3,7 +3,7 @@
 Para redactar correctamente un archivo de diseño en `Braille3D-Lang`, se deben seguir las reglas sintácticas y léxicas del lenguaje.
 
 * **Estructura de Placa (`PLATE`):** Define el bloque principal de la placa. Sus atributos internos deben terminar obligatoriamente con punto y coma (`;`).
-* **Bloques Internos (`TEXT` y `BRAILLE`):** Permiten configurar el contenido visual y el relieve táctil en Braille mediante atributos como `CONTENT`, `POSITION`, `ORIENTATION` y `RELIEF`. Por ahora el lexer reconoce `CONTENT` como un identificador (`ID`) y no como palabra reservada.
+* **Bloques Internos (`TEXT` y `BRAILLE`):** Permiten configurar el contenido visual y el relieve táctil en Braille mediante atributos como `CONTENT`, `POSITION`, `ORIENTATION` y `RELIEF`.
 * **Reutilización (`TEMPLATE` y `USE`):** Permiten definir plantillas base con propiedades físicas comunes y heredarlas en diferentes placas.
 * **Restricciones y Reglas:**
   * **Comentarios (`COMMENT`):** Comienzan con `#` y son omitidos por el compilador. Admiten texto, espacios, símbolos (como `|`), tildes (`á`, `é`, `í`, `ó`, `ú`) y eñes (`ñ`, `Ñ`).

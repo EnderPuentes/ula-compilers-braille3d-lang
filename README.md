@@ -16,7 +16,7 @@ El analizador léxico es la primera etapa del intérprete. Lee el texto de un ar
 
 **Qué reconoce**
 
-- 22 palabras reservadas (`PLATE`, `BRAILLE`, `TEXT`, `TEMPLATE`, `USE`, `WIDTH`, ...) y la unidad `mm`.
+- 23 palabras reservadas (`PLATE`, `BRAILLE`, `TEXT`, `CONTENT`, `TEMPLATE`, `USE`, `WIDTH`, ...) y la unidad `mm`.
 - Identificadores, números enteros y decimales, y cadenas de texto con tildes y `ñ`.
 - El operador `=` y los delimitadores `{ } ( ) , ;`.
 - Comentarios de una línea con `#` y espacios en blanco, que se descartan antes de entregar los tokens.

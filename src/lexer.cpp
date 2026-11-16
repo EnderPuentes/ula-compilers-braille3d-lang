@@ -39,6 +39,7 @@ namespace Braille3D
         lexer_.add_token("KW_MATERIAL", "MATERIAL");
         lexer_.add_token("KW_POSITION", "POSITION");
         lexer_.add_token("KW_ORIENTATION", "ORIENTATION");
+        lexer_.add_token("KW_CONTENT", "CONTENT");
         lexer_.add_token("KW_PLA", "PLA");
         lexer_.add_token("KW_PETG", "PETG");
         lexer_.add_token("KW_CENTER", "CENTER");
