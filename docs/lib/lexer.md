@@ -89,7 +89,7 @@ Para mantener la modularidad y limpieza en el código fuente, se definieron cons
 | **`NUMBER`** |`[0-9]+(\.[0-9]+)?`| Parte Entera (`[0-9]+`) y Parte Decimal Opcional (`(\.[0-9]+)?`),Valores numéricos enteros (con soporte para *Maximal Munch*).| `50`, `3.3`|
 | **`STRING`** | `"[^"]*"` | Literales de texto encerrados entre comillas dobles (incluye tildes, ñ y caracteres especiales en español).| `"Institución para Niños y Niñas"`|
 
-* 5. **Flujo Limpio:**
+* 6. **Flujo Limpio:**
 
 Para evitar conflictos entre tokens con prefijos similares o patrones solapados, el analizador aplica dos principios fundamentales:
 
@@ -116,7 +116,7 @@ En la implementación del programa principal (src/main.cpp) para mostrar el func
    * 4. **Validación y Notificación Léxica:** Mediante un bloque try-catch, el programa evalúa el escaneo. Si no se detectan anomalías, se notifica que el archivo no posee errores léxicos y el flujo es válido para el Parser; de lo contrario, captura y reporta el error léxico o de lectura de archivo. 
 ---
 
-## 5. Ejecucion de los ejemplos de prueba:
+##  Ejecucion de los ejemplos de prueba:
 **Nota: En caso de querer modificarlos leer el README correspondiente a la carpeta(examples):**
    * 1. **centro-salud.b3d:**Ejemplo de una placa individual que configura dimensiones físicas con decimales, material termoplástico, orientación vertical y contenido en sistema braille.
       * **Objetivo en el lexer:**Valida el reconocimiento de identificadores (`ID`), números enteros y decimales (`NUMBER`), la unidad de medida (`UNIT_MM`), palabras reservadas de posicionamiento (`VERTICAL`, `CENTER`) y literales de cadena con acentos en español (`STRING`).
@@ -150,7 +150,7 @@ Abre una terminal en la carpeta raíz del repositorio (`Braille3D-Lang/`) y ejec
 
 
 
-## 6. Estructura del Directorio :
+##  Estructura del Directorio :
 
 Braille3D-Lang/
 ├── CMakeLists.txt          
