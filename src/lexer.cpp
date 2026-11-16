@@ -1,4 +1,4 @@
-#include "../includes/lexer.h"
+#include <braille3d/lexer.hpp>
 namespace Braille3D 
 {
     LexerB3D::LexerB3D() 

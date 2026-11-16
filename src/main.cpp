@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
-#include "includes/lexer.h"
+#include <braille3d/lexer.hpp>
 
 std::string read_file(const std::string& filepath)
 {
