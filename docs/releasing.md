@@ -1,75 +1,75 @@
-# Releasing
+# Releases
 
-Releases are automated with [release-please](https://github.com/googleapis/release-please). It reads the Conventional Commits on `main`, chooses the next version and writes the changelog.
+Los releases se automatizan con [release-please](https://github.com/googleapis/release-please). Lee los Conventional Commits de `main`, elige la siguiente versión y escribe el changelog.
 
-## How it works
+## Cómo funciona
 
-1. Work is merged into `develop`, and `develop` is merged into `main`. Use a merge commit, not a squash, so every Conventional Commit reaches `main`.
-2. When commits reach `main`, the workflow `release-please.yml` opens or updates a pull request named `chore(release): vX.Y.Z`.
-3. That pull request updates `CHANGELOG.md`, the version manifest and the version in `include/version.hpp`.
-4. Merging it creates the tag `vX.Y.Z` and the GitHub release with the notes.
-5. The workflow `sync-develop-from-main.yml` merges `main` back into `develop`, so `develop` also has the release changes.
+1. El trabajo se integra en `develop`, y `develop` se integra en `main`. Usa un merge commit y no un squash, para que cada Conventional Commit llegue a `main`.
+2. Cuando llegan commits a `main`, el workflow `release-please.yml` abre o actualiza un pull request llamado `chore(release): vX.Y.Z`.
+3. Ese pull request actualiza `CHANGELOG.md`, el manifiesto de versión y la versión en `include/version.hpp`.
+4. Al integrarlo se crea la etiqueta `vX.Y.Z` y el release de GitHub con las notas.
+5. El workflow `sync-develop-from-main.yml` integra `main` de vuelta en `develop`, para que `develop` también tenga los cambios del release.
 
-## Versioning
+## Versionado
 
-The version starts at `0.0.0`. The first release is expected to be `0.1.0`.
+La versión empieza en `0.0.0`. Se espera que el primer release sea `0.1.0`.
 
-| Commit | Version change |
+| Commit | Cambio de versión |
 | --- | --- |
-| `fix: ...` | patch (`0.1.0` to `0.1.1`) |
-| `feat: ...` | minor (`0.1.0` to `0.2.0`) |
-| `feat!: ...` or a `BREAKING CHANGE:` footer | major, but minor while the version is below `1.0.0` |
+| `fix: ...` | parche (`0.1.0` a `0.1.1`) |
+| `feat: ...` | menor (`0.1.0` a `0.2.0`) |
+| `feat!: ...` o un pie `BREAKING CHANGE:` | mayor, pero menor mientras la versión sea inferior a `1.0.0` |
 
-The version is decided by `feat`, `fix` and breaking changes. The other types only appear in the changelog.
+La versión la deciden `feat`, `fix` y los cambios incompatibles. Los demás tipos solo aparecen en el changelog.
 
 ## Changelog
 
-`CHANGELOG.md` is generated. Each release groups its commits by type:
+`CHANGELOG.md` se genera. Cada release agrupa sus commits por tipo:
 
-| Type | Section | Shown |
+| Tipo | Sección | Se muestra |
 | --- | --- | --- |
-| `feat` | Features | yes |
-| `fix` | Bug Fixes | yes |
-| `perf` | Performance Improvements | yes |
-| `revert` | Reverts | yes |
-| `refactor` | Code Refactoring | yes |
-| `docs` | Documentation | yes |
-| `build` | Build System | yes |
-| `style` | Styles | yes |
-| `chore` | Miscellaneous Chores | yes |
+| `feat` | Features | sí |
+| `fix` | Bug Fixes | sí |
+| `perf` | Performance Improvements | sí |
+| `revert` | Reverts | sí |
+| `refactor` | Code Refactoring | sí |
+| `docs` | Documentation | sí |
+| `build` | Build System | sí |
+| `style` | Styles | sí |
+| `chore` | Miscellaneous Chores | sí |
 | `test` | Tests | no |
 | `ci` | Continuous Integration | no |
 
-Write clear commit subjects: they become the lines of the changelog.
+Escribe asuntos de commit claros: se convierten en las líneas del changelog.
 
-## The release token
+## El token de release
 
-Both workflows use a personal access token stored in the repository secret `RELEASE_PLEASE_TOKEN`. With it, the pull requests and tags that release-please creates can start other workflows, and the sync workflow can push to `develop`. If the secret is missing, both workflows fail with a message that names it.
+Ambos workflows usan un token de acceso personal guardado en el secreto de repositorio `RELEASE_PLEASE_TOKEN`. Con él, los pull requests y las etiquetas que crea release-please pueden iniciar otros workflows, y el workflow de sincronización puede hacer push a `develop`. Si falta el secreto, ambos workflows fallan con un mensaje que lo nombra.
 
-Create the token and the secret once:
+Crea el token y el secreto una sola vez:
 
-1. In GitHub, go to Settings, Developer settings, Personal access tokens, Fine-grained tokens.
-2. Create a token for this repository only, with these repository permissions: Contents (read and write), Pull requests (read and write), Issues (read and write) and Metadata (read).
-3. Store it as the secret. The command asks for the value, so it is not saved in your shell history:
+1. En GitHub, ve a Settings, Developer settings, Personal access tokens, Fine-grained tokens.
+2. Crea un token solo para este repositorio, con estos permisos de repositorio: Contents (lectura y escritura), Pull requests (lectura y escritura), Issues (lectura y escritura) y Metadata (lectura).
+3. Guárdalo como secreto. El comando pide el valor, así que no queda en el historial de tu shell:
 
 ```bash
 gh secret set RELEASE_PLEASE_TOKEN --repo EnderPuentes/ula-compilers-braille3d-lang
 ```
 
-Keep the token private and renew it before it expires. If it expires, the workflows fail until the secret is replaced.
+Mantén el token en privado y renuévalo antes de que caduque. Si caduca, los workflows fallan hasta que se reemplace el secreto.
 
-## Rules
+## Reglas
 
-- Do not edit `CHANGELOG.md`, `.github/config/release/release-please-manifest.json` or the version in `include/version.hpp` by hand. The release pull request owns them.
-- Keep the comment `x-release-please-version` on the version line of `include/version.hpp`. It tells release-please which line to update.
-- Use only the options that exist in the release-please schema. An unknown key is ignored without any warning. Check the configuration against `https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json` after each change.
-- The workflows only release and sync. Tests, lint and format checks run in the `pre-push` hook, never in CI.
+- No edites a mano `CHANGELOG.md`, `.github/config/release/release-please-manifest.json` ni la versión de `include/version.hpp`. Pertenecen al pull request de release.
+- Conserva el comentario `x-release-please-version` en la línea de versión de `include/version.hpp`. Le indica a release-please qué línea actualizar.
+- Usa solo las opciones que existen en el esquema de release-please. Una clave desconocida se ignora sin ninguna advertencia. Comprueba la configuración contra `https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json` después de cada cambio.
+- Los workflows solo publican y sincronizan. Los tests, el lint y las comprobaciones de formato se ejecutan en el hook `pre-push`, nunca en CI.
 
-## Files
+## Archivos
 
-| File | Purpose |
+| Archivo | Propósito |
 | --- | --- |
-| `.github/workflows/release-please.yml` | opens the release pull request and creates the release |
-| `.github/workflows/sync-develop-from-main.yml` | merges `main` into `develop` after a release |
-| `.github/config/release/release-please.config.json` | release type, tag format, changelog sections and files to update |
-| `.github/config/release/release-please-manifest.json` | the current released version |
+| `.github/workflows/release-please.yml` | abre el pull request de release y crea el release |
+| `.github/workflows/sync-develop-from-main.yml` | integra `main` en `develop` después de un release |
+| `.github/config/release/release-please.config.json` | tipo de release, formato de las etiquetas, secciones del changelog y archivos a actualizar |
+| `.github/config/release/release-please-manifest.json` | la versión publicada actual |
