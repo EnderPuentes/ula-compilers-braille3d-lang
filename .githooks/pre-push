@@ -5,7 +5,10 @@
 
 [ -f Makefile ] || [ -f makefile ] || [ -f GNUmakefile ] || exit 0
 
-has_target() { make -n "$1" >/dev/null 2>&1; }
+has_target() {
+  out="$(make -n "$1" 2>&1)" || return 1
+  case "$out" in *"Nothing to be done"*) return 1 ;; esac
+}
 
 for t in build lint test; do
   if has_target "$t"; then
