@@ -1,0 +1,17 @@
+#!/bin/sh
+# Conventional Commits, English, plain ASCII subject.
+msg_file="$1"
+msg=$(grep -v '^#' "$msg_file")
+subject=$(printf '%s\n' "$msg" | sed -n '1p')
+
+if ! printf '%s\n' "$subject" | grep -Eq '^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([^)]+\))?!?: .+'; then
+  echo "commit-msg: subject must match '<type>(<scope>)?: <description>'." >&2
+  echo "  types: feat fix docs style refactor perf test build ci chore revert" >&2
+  exit 1
+fi
+
+if printf '%s' "$subject" | LC_ALL=C grep -q '[^ -~]'; then
+  echo "commit-msg: subject must be plain ASCII English (no accents or symbols)." >&2
+  exit 1
+fi
+exit 0
