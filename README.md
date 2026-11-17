@@ -6,6 +6,8 @@ Un intérprete en C++ para el lenguaje braille3d, desarrollado para la cátedra 
 
 braille3d es un lenguaje para describir placas con texto y relieve braille listas para impresión 3D. El intérprete se construye por etapas, y cada una se entrega como una fase. La arquitectura general está en [`docs/architecture.md`](docs/architecture.md).
 
+**Alcance:** el braille de braille3d es para **señalización de lugares**: placas con el nombre de un espacio o un aviso corto, como «Baño», «Farmacia» o «Piso 2», que ayudan a las personas ciegas a ubicarse. No es un lenguaje para transcribir textos largos. Por eso las cadenas aceptan solo los caracteres que tienen sentido en un letrero.
+
 ## Fases de entrega
 
 ### Fase 1: analizador léxico

@@ -81,7 +81,7 @@ Para mantener la modularidad y la limpieza en el código fuente, se definieron c
 
 | Token (identificador en C++) | Expresión Regular / Patrón | Descripción |
 | :--------------------------- | :------------------------- | :---------- |
-| **`COMMENT`** | `"#" + comment_char + "*"` | Los comentarios de una línea comienzan con `#` y admiten los mismos caracteres que `STRING` (texto, espacios, símbolos como `\|` y tildes `á`, `é`, `í`, `ó`, `ú`, también `ñ` y `Ñ`), sin las comillas dobles: una `"` termina el comentario. Se omiten en el análisis estándar, pero son accesibles mediante `tokenize_raw()`. |
+| **`COMMENT`** | `"#" + comment_char + "*"` | Los comentarios de una línea comienzan con `#` y admiten los mismos caracteres que `STRING` más los símbolos del texto cotidiano (`' $ % & @ < > [ ] ^ ~ \` ¿ ¡`, el acento grave y la barra invertida). Un comentario no se traduce a braille, por eso es más permisivo que una cadena. Una `"`, una `{`, una `}` o un salto de línea terminan el comentario. Se omiten en el análisis estándar, pero son accesibles mediante `tokenize_raw()`. |
 | **`WS`**      | `"( \|\t\|\n\|\r)( \|\t\|\n\|\r)*"` | Espacios en blanco, tabulaciones y saltos de línea, ignorados por el lexer en el método `tokenize()`. |
 
 5. **Tokens de Datos y Literales:**

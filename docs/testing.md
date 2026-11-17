@@ -84,6 +84,7 @@ test: build/lexer.test failed.
 | Cadenas | el texto entre comillas es un `STRING`, también con tildes y `ñ`, y el lexema conserva todos los bytes |
 | Delimitadores | `=`, `{`, `}`, `(`, `)`, `,` y `;` tienen su propio token, incluso sin espacios |
 | Espacios y comentarios | los saltos de línea, tabuladores y retornos de carro son espacios; las letras `n`, `t` y `r` no lo son; `tokenize()` descarta espacios y comentarios, y `tokenize_raw()` los conserva |
+| Caracteres de comentarios | un comentario acepta `'`, `$`, `%`, `&`, `@`, `<`, `>`, `[`, `]`, `^`, `~`, `` ` ``, `\`, `¿` y `¡`; una `"` o una `{` lo terminan; una cadena sigue rechazando esos símbolos |
 | Errores léxicos | un carácter suelto (`@`), una cadena sin cerrar y un número terminado en punto lanzan `std::runtime_error` |
 | Programas de ejemplo | cada archivo de `examples/` se analiza sin error y produce tokens |
 
