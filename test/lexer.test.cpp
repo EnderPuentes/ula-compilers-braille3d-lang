@@ -14,6 +14,7 @@
     - the operator and the delimiters;
     - whitespace and comments, which tokenize() drops and tokenize_raw()
       keeps;
+    - the characters a comment accepts, which a string does not;
     - lexical errors, which must be reported as std::runtime_error;
     - the example programs in examples/, which must scan without errors.
 
@@ -326,6 +327,41 @@ namespace
               "tokenize_raw keeps the comments and the line breaks");
     }
 
+    /** A comment is free text that nobody translates to braille, so it
+        accepts more characters than a string: the apostrophe, the symbols
+        of everyday text, the Spanish opening question and exclamation marks
+        and the accented letters. Only the double quote, the braces and the
+        line break end it. A string keeps its closed list of characters, so
+        the same symbols are still rejected inside quotes. */
+    void test_comment_characters(const Braille3D::LexerB3D& lexer)
+    {
+        begin_group("comment characters");
+
+        check(scan(lexer, "# don't\nPLATE") == "KW_PLATE",
+              "a comment accepts the apostrophe");
+        check(scan(lexer, "# $5 50% a&b @home\nPLATE") == "KW_PLATE",
+              "a comment accepts $, %, & and @");
+        check(scan(lexer, "# <a> [b] ^c ~d `e`\nPLATE") == "KW_PLATE",
+              "a comment accepts <, >, [, ], ^, ~ and the backtick");
+        check(scan(lexer, "# a\\b\nPLATE") == "KW_PLATE",
+              "a comment accepts the backslash");
+        check(scan(lexer, "# \xc2\xbfQu\xc3\xa9 hora es? "
+                          "\xc2\xa1Listo!\nPLATE") == "KW_PLATE",
+              "a comment accepts the Spanish question and exclamation marks");
+        check(scan(lexer, "# Caf\xc3\xa9 de a\xc3\xb1o") == "",
+              "a comment accepts Spanish letters and may end the file");
+        check(scan(lexer, "# a \"q\" b") == "STRING ID",
+              "a double quote ends a comment");
+        check(scan(lexer, "# x { y") == "LBRACE ID", "a brace ends a comment");
+
+        check(is_lexical_error(lexer, "\"it's\""),
+              "a string still rejects the apostrophe");
+        check(is_lexical_error(lexer, "\"50%\""),
+              "a string still rejects the percent sign");
+        check(is_lexical_error(lexer, "\"\xc2\xbfQu\xc3\xa9?\""),
+              "a string still rejects the opening question mark");
+    }
+
     /** A character that no rule accepts is a lexical error. The tests use
         a stray character, an unterminated string, and a number that ends
         with a dot. */
@@ -380,6 +416,7 @@ int main()
     test_strings(lexer);
     test_delimiters(lexer);
     test_whitespace_and_comments(lexer);
+    test_comment_characters(lexer);
     test_errors(lexer);
     test_examples(lexer);
 
