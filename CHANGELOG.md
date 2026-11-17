@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.0.2](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/compare/v1.0.1...v1.0.2) (2026-11-17)
+
+
+### Bug Fixes
+
+* **lexer:** accept everyday symbols in comments ([500286e](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/500286e47a7d4b0ffed98fbece6bec4e011b6f49))
+* **lexer:** accept everyday symbols in comments ([7daa34b](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/7daa34bd20f94adf4056baa8ef95a7881df3980b))
+
+
+### Documentation
+
+* state that the braille scope is place signage ([12885e1](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/12885e1df974ddd818748460ed258b87c24fc751))
+
+
+### Build System
+
+* compile with -O2 to cut the lexer startup time ([5e3b3f2](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/5e3b3f2835845d842612e0e51e9988b0c0a985f6))
+* compile with -O2 to cut the lexer startup time ([6df6989](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/6df6989ad80011adb8ab90d6f2faf0caf77dd908))
+
+
+### Miscellaneous Chores
+
+* merge develop into main ([c8eb094](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/c8eb094af81976dcb6b06ff6993fe20cfb67c732))
+* sync main into develop ([9455d79](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/9455d790ac618abe8a6a91f9311e0e1480346e95))
+
 ## [1.0.1](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/compare/v1.0.0...v1.0.1) (2026-11-17)
 
 
