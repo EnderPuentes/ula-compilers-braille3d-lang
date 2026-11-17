@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.0.1](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/compare/v1.0.0...v1.0.1) (2026-11-17)
+
+
+### Reverts
+
+* **release:** remove the initial version setting ([5ab080f](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/5ab080fc50aef7ed746932075296e2efca95b7ff))
+
+
+### Documentation
+
+* **releasing:** state that the release waits for its pull request and update the versions ([440504e](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/440504ea1db2ae376601889512fae278c3793e7c))
+
+
+### Miscellaneous Chores
+
+* release the documentation fixes as v1.0.1 ([885bbce](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/885bbcec08440f8f70ff06ea30424ee73bf647e5))
+* sync main into develop ([bff284d](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/commit/bff284d222bb5a1be8bb586d508463ebdf180943))
+
 ## 1.0.0 (2026-11-17)
 
 
