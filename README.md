@@ -1,29 +1,74 @@
-# braille3d-lang interpreter
+# Intérprete de braille3d-lang
 
-A C++ interpreter for the braille3d language, built for the university compilers course.
+Un intérprete en C++ para el lenguaje braille3d, desarrollado para la cátedra universitaria de Compiladores.
 
-New here? Start with [`docs/getting-started.md`](docs/getting-started.md). The rules of the project are in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+## Sobre el proyecto
 
-## Prerequisites
+braille3d es un lenguaje para describir placas con texto y relieve braille listas para impresión 3D. El intérprete se construye por etapas, y cada una se entrega como una fase. La arquitectura general está en [`docs/architecture.md`](docs/architecture.md).
 
-Install these tools **before** anything else. This README assumes they are already on your machine and does not install them.
+## Fases de entrega
 
-| Tool | Version | Needed for | Check |
+### Fase 1: analizador léxico
+
+**Fecha de entrega:** 16 de noviembre de 2026
+
+El analizador léxico es la primera etapa del intérprete. Lee el texto de un archivo `.b3d` y lo convierte en una secuencia de tokens, que es la entrada del analizador sintáctico. Está construido con la clase `Designar::Lexer` de la biblioteca [DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR).
+
+**Qué reconoce**
+
+- 23 palabras reservadas (`PLATE`, `BRAILLE`, `TEXT`, `CONTENT`, `TEMPLATE`, `USE`, `WIDTH`, ...) y la unidad `mm`.
+- Identificadores, números enteros y decimales, y cadenas de texto con tildes y `ñ`.
+- El operador `=` y los delimitadores `{ } ( ) , ;`.
+- Comentarios de una línea con `#` y espacios en blanco, que se descartan antes de entregar los tokens.
+
+**Cómo funciona**
+
+La clase `LexerB3D` registra todas las reglas en su constructor. `tokenize()` devuelve los tokens sin espacios ni comentarios, y `tokenize_raw()` devuelve todos, para depuración. `Designar::Lexer` consume en cada posición el lexema más largo que acepte alguna regla y, si dos reglas empatan, gana la registrada primero. Por eso las palabras reservadas se registran antes que los identificadores. DeSiGNAR no tiene clases de caracteres como `[a-z]` ni negaciones como `[^"]`, así que los rangos se escriben como alternaciones explícitas.
+
+**Estructura**
+
+| Archivo | Contenido |
+| --- | --- |
+| [`include/braille3d/lexer.hpp`](include/braille3d/lexer.hpp) | declaración de la clase `LexerB3D` |
+| [`src/lexer.cpp`](src/lexer.cpp) | reglas de los tokens y modos de escaneo |
+| [`src/main.cpp`](src/main.cpp) | programa que imprime los tokens de un archivo |
+| [`examples/`](examples/README.md) | programas `.b3d` de prueba |
+
+**Cómo probarlo**
+
+```bash
+make build
+./build/braille3d examples/health-center.b3d
+```
+
+**Para más información**
+
+- [Implementación del analizador léxico](docs/lexer.md): clase, reglas, resolución de conflictos y adaptación a DeSiGNAR.
+- [Sintaxis del lenguaje](docs/syntax.md): cómo escribir un archivo `.b3d`.
+- [Ejemplos](examples/README.md): qué prueba cada programa.
+
+¿Primera vez aquí? Empieza con [`docs/getting-started.md`](docs/getting-started.md). Las reglas del proyecto están en [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Requisitos previos
+
+Instala estas herramientas **antes** de cualquier otro paso. Este README asume que ya están en tu máquina y no las instala.
+
+| Herramienta | Versión | Para qué se necesita | Comprobación |
 | --- | --- | --- | --- |
-| C++ compiler | `g++` 9+ or `clang++` 14+ | building the interpreter and DeSiGNAR | `g++ --version` or `clang++ --version` |
-| GNU `make` | any recent version | building the interpreter | `make --version` |
-| `git` | any recent version | cloning DeSiGNAR | `git --version` |
-| `clang-format` | any recent version (optional) | `make format`, `make format-check` and the pre-commit hook | `clang-format --version` |
-| CMake | 3.20+ | installing DeSiGNAR, **once** | `cmake --version` |
-| DeSiGNAR | 4.0.1 (commit `ab9099c`) | the data structures library | see [Install DeSiGNAR](#install-designar) |
+| Compilador de C++ | `g++` 9+ | compilar el intérprete y DeSiGNAR | `g++ --version` |
+| GNU `make` | cualquier versión reciente | compilar el intérprete | `make --version` |
+| `git` | cualquier versión reciente | clonar DeSiGNAR | `git --version` |
+| `clang-format` | 14 o superior (opcional) | `make format`, `make format-check` y el hook `pre-commit` | `clang-format --version` |
+| CMake | 3.20+ | instalar DeSiGNAR, **una sola vez** | `cmake --version` |
+| DeSiGNAR | 4.0.1 (commit `ab9099c`) | la biblioteca de estructuras de datos | ver [Instalar DeSiGNAR](#instalar-designar) |
 
-CMake is used only to build and install DeSiGNAR. If DeSiGNAR is already installed on your machine, you do not need CMake. Get CMake from your system package manager or from <https://cmake.org/download/>.
+CMake solo se usa para compilar e instalar DeSiGNAR. Si DeSiGNAR ya está instalado en tu máquina, no necesitas CMake. Obtén CMake con el gestor de paquetes de tu sistema o en <https://cmake.org/download/>.
 
-### Install DeSiGNAR
+### Instalar DeSiGNAR
 
-[DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR) is a C++17 data structures and algorithms library. It is a **system prerequisite**: it is installed once, outside this repository, and the project only needs to know where it is.
+[DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR) es una biblioteca de estructuras de datos y algoritmos en C++17. Es un **requisito del sistema**: se instala una vez, fuera de este repositorio, y el proyecto solo necesita saber dónde está.
 
-Build and install it into a prefix you own, for example `~/.local`:
+Compílala e instálala en un prefijo propio, por ejemplo `~/.local`:
 
 ```bash
 git clone https://github.com/R3mmurd/DeSiGNAR.git
@@ -34,90 +79,91 @@ cmake --build build --parallel
 cmake --install build --prefix ~/.local
 ```
 
-This installs the headers into `~/.local/include` and `libDesignar.a` into `~/.local/lib`.
+Esto instala las cabeceras en `~/.local/include` y `libDesignar.a` en `~/.local/lib`.
 
-### Compiler: g++ or clang++
+### Compilador: g++
 
-Both compilers are supported. DeSiGNAR **must be built with the same compiler and standard library as the interpreter**; mixing them fails at link time. To use clang, build DeSiGNAR with it and use a separate prefix:
+El intérprete se compila y se prueba solo con `g++`. DeSiGNAR **debe compilarse con el mismo compilador y la misma biblioteca estándar que el intérprete**; mezclarlos falla al enlazar. Por eso DeSiGNAR se compila con `g++`. Si tu sistema usa otro compilador por defecto, antepón `CC=gcc CXX=g++` al primer comando de `cmake` de la sección anterior.
 
-```bash
-CC=clang CXX=clang++ cmake -S . -B build-clang -DCMAKE_BUILD_TYPE=Release -DDESIGNAR_BUILD_SAMPLES=OFF -DDESIGNAR_BUILD_TESTS=OFF
-cmake --build build-clang --parallel
-cmake --install build-clang --prefix ~/.local/designar-clang
-```
+## Configurar la ruta de DeSiGNAR
 
-## Configuring the DeSiGNAR path
+La ubicación de la biblioteca se define en un solo lugar, `config.mk`:
 
-The location of the library is defined in one place, `config.mk`:
-
-| Variable | Default | Meaning |
+| Variable | Valor por defecto | Significado |
 | --- | --- | --- |
-| `DESIGNAR_PREFIX` | `/usr/local` | installation prefix |
-| `DESIGNAR_INCLUDEDIR` | `$(DESIGNAR_PREFIX)/include` | directory with the headers |
-| `DESIGNAR_LIBDIR` | `$(DESIGNAR_PREFIX)/lib` | directory with `libDesignar.a` (use `lib64` where your distribution requires it) |
-| `CXX` | `g++` | compiler (`clang++` also works) |
+| `DESIGNAR_PREFIX` | `/usr/local` | prefijo de instalación |
+| `DESIGNAR_INCLUDEDIR` | `$(DESIGNAR_PREFIX)/include` | directorio con las cabeceras |
+| `DESIGNAR_LIBDIR` | `$(DESIGNAR_PREFIX)/lib` | directorio con `libDesignar.a` (usa `lib64` donde tu distribución lo requiera) |
+| `CXX` | `g++` | compilador |
 
-Set the path for your machine in `config.local.mk`, which is not versioned:
+Define la ruta de tu máquina en `config.local.mk`, que no se versiona:
 
 ```bash
 cp config.local.mk.example config.local.mk
 ```
 
-Then edit `DESIGNAR_PREFIX` in it. You can also override any variable for one command:
+Luego edita `DESIGNAR_PREFIX` en ese archivo. También puedes sobrescribir cualquier variable en un solo comando:
 
 ```bash
 make test DESIGNAR_PREFIX=$HOME/.local
-make test CXX=clang++ DESIGNAR_PREFIX=$HOME/.local/designar-clang
 ```
 
-The library is included with `-isystem`, so warnings inside DeSiGNAR headers never break a `-Werror` build.
+La biblioteca se incluye con `-isystem`, de modo que las advertencias dentro de las cabeceras de DeSiGNAR nunca rompen una compilación con `-Werror`.
 
-## Verifying the setup
+## Verificar la configuración
 
 ```bash
-make help          # lists the targets
-make show-config   # prints the compiler and the paths in use
-make check-deps    # checks the compiler, the DeSiGNAR headers and libDesignar.a
-make test          # builds and runs every test/*.test.cpp against DeSiGNAR
+make help          # lista los targets
+make show-config   # muestra el compilador y las rutas en uso
+make check-deps    # comprueba el compilador, las cabeceras de DeSiGNAR y libDesignar.a
+make test          # compila y ejecuta cada test/*.test.cpp contra DeSiGNAR
 ```
 
-Each check stops at the first problem and names it: the compiler, the DeSiGNAR headers, `libDesignar.a`, or a test that does not build (wrong standard, or DeSiGNAR built with a different compiler).
+Cada comprobación se detiene en el primer problema y lo nombra: el compilador, las cabeceras de DeSiGNAR, `libDesignar.a`, o un test que no compila (estándar incorrecto, o DeSiGNAR compilado con otro compilador).
 
-Tests live in `test/` and are named `<name>.test.cpp`; each one is a program that exits with 0 when it passes. `test/prerequisites.test.cpp` is the basic prerequisites test: it inserts and searches one value in a DeSiGNAR `AVLTree`, so it only passes if the library compiles, links and runs with your compiler and paths.
+Los tests viven en `test/` y se llaman `<nombre>.test.cpp`; cada uno es un programa que termina con código 0 cuando pasa. Cómo ejecutarlos, qué cubren y cómo añadir uno: [`docs/testing.md`](docs/testing.md). `test/prerequisites.test.cpp` es el test básico de requisitos: inserta y busca un valor en un `AVLTree` de DeSiGNAR, así que solo pasa si la biblioteca compila, enlaza y se ejecuta con tu compilador y tus rutas.
 
-## Building and running
+## Compilar y ejecutar
 
 ```bash
 make build
-./build/braille3d
+./build/braille3d examples/health-center.b3d
 ```
 
-## Project layout
+El programa recibe como argumento el archivo `.b3d` y muestra sus tokens. Los detalles están en [`docs/lexer.md`](docs/lexer.md).
 
-| Path | Content |
+## Estructura del proyecto
+
+| Ruta | Contenido |
 | --- | --- |
-| `src/` | implementation files |
-| `include/` | project headers |
-| `test/` | tests, named `<name>.test.cpp` |
-| `docs/` | documentation: [`getting-started.md`](docs/getting-started.md), [`architecture.md`](docs/architecture.md), [`releasing.md`](docs/releasing.md) |
-| `CONTRIBUTING.md` | how to contribute: branches, commits, checks and pull requests |
-| `config.mk` | compiler and DeSiGNAR settings |
-| `Makefile` | build, lint, format and test targets |
-| `.github/` | release workflows and their configuration, see [`docs/releasing.md`](docs/releasing.md) |
-| `.clang-format` | code style |
+| `src/` | archivos de implementación |
+| `include/` | cabeceras del proyecto (`include/braille3d/` para los módulos) |
+| `examples/` | programas `.b3d` de ejemplo |
+| `test/` | tests, con el nombre `<nombre>.test.cpp` |
+| `docs/` | documentación: [`getting-started.md`](docs/getting-started.md), [`architecture.md`](docs/architecture.md), [`lexer.md`](docs/lexer.md), [`syntax.md`](docs/syntax.md), [`testing.md`](docs/testing.md), [`releasing.md`](docs/releasing.md) |
+| `CONTRIBUTING.md` | cómo contribuir: ramas, commits, comprobaciones y pull requests |
+| `config.mk` | configuración del compilador y de DeSiGNAR |
+| `Makefile` | targets de compilación, lint, formato y tests |
+| `.github/` | workflows de release y su configuración, ver [`docs/releasing.md`](docs/releasing.md) |
+| `.githooks/` | hooks de Git del proyecto, ver [`.githooks/README.md`](.githooks/README.md) |
+| `.clang-format` | estilo del código (el de DeSiGNAR) |
 
-## Make targets
+## Targets de make
 
-| Target | What it does |
+| Target | Qué hace |
 | --- | --- |
-| `make build` | builds the interpreter into `build/braille3d` |
-| `make lint` | compiles every file with warnings as errors, without output files |
-| `make format` | formats every C++ file in place (needs `clang-format`) |
-| `make format-check` | checks the format without changing files (needs `clang-format`) |
-| `make test` | builds and runs every `test/*.test.cpp` |
-| `make check-deps` | checks the compiler and DeSiGNAR |
-| `make clean` | removes `build/` |
+| `make build` | compila el intérprete en `build/braille3d` |
+| `make lint` | compila cada archivo con las advertencias como errores, sin generar archivos de salida |
+| `make format` | da formato a cada archivo C++ en el sitio (requiere `clang-format`) |
+| `make format-check` | comprueba el formato sin modificar archivos (requiere `clang-format`) |
+| `make test` | compila y ejecuta cada `test/*.test.cpp` |
+| `make check-deps` | comprueba el compilador y DeSiGNAR |
+| `make clean` | elimina `build/` |
 
 ## Releases
 
-Releases are created automatically from Conventional Commits with release-please. The version, the tags and `CHANGELOG.md` are generated, and the workflows use a personal access token stored as the repository secret `RELEASE_PLEASE_TOKEN`. See [`docs/releasing.md`](docs/releasing.md) for the process, the token and the rules.
+Los releases se crean automáticamente a partir de Conventional Commits con release-please. La versión, las etiquetas y `CHANGELOG.md` se generan, y los workflows usan un token de acceso personal guardado en el secreto de repositorio `RELEASE_PLEASE_TOKEN`. Consulta [`docs/releasing.md`](docs/releasing.md) para el proceso, el token y las reglas.
+
+## Licencia
+
+Este proyecto se distribuye bajo los términos académicos de uso y derechos de autor detallados en [`LICENSE.md`](LICENSE.md).

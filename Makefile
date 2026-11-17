@@ -13,13 +13,15 @@ BUILD_DIR   := build
 OBJ_DIR     := $(BUILD_DIR)/obj
 
 # --- Files ---------------------------------------------------------------
-SRCS      := $(wildcard $(SRC_DIR)/*.cpp)
+SRCS      := $(shell find $(SRC_DIR) -name '*.cpp' | sort)
 OBJS      := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
+# Objects of the project without main(), so a test can link the code it checks.
+LIB_OBJS  := $(filter-out $(OBJ_DIR)/main.o,$(OBJS))
 DEPS      := $(OBJS:.o=.d)
 TARGET    := $(BUILD_DIR)/braille3d
 TEST_SRCS := $(wildcard $(TEST_DIR)/*.test.cpp)
 TEST_BINS := $(patsubst $(TEST_DIR)/%.test.cpp,$(BUILD_DIR)/%.test,$(TEST_SRCS))
-CXX_FILES := $(SRCS) $(wildcard $(INCLUDE_DIR)/*.hpp) $(TEST_SRCS)
+CXX_FILES := $(SRCS) $(shell find $(INCLUDE_DIR) -name '*.hpp' | sort) $(TEST_SRCS)
 
 CLANG_FORMAT ?= clang-format
 
@@ -101,9 +103,9 @@ test: check-deps $(TEST_BINS) ## Build and run every test/*.test.cpp
 
 # FORCE rebuilds every test on each run, so a changed compiler or path
 # cannot reuse a stale binary.
-$(BUILD_DIR)/%.test: $(TEST_DIR)/%.test.cpp FORCE
+$(BUILD_DIR)/%.test: $(TEST_DIR)/%.test.cpp $(LIB_OBJS) FORCE
 	@mkdir -p $(@D)
-	@$(LINK.cpp) $< $(LDLIBS) -o $@ || \
+	@$(LINK.cpp) $< $(LIB_OBJS) $(LDLIBS) -o $@ || \
 		{ echo "test: $< did not build with $(CXX) -std=$(CXXSTD). DeSiGNAR needs C++17 and must be built with the same compiler and standard library."; exit 1; }
 
 FORCE:

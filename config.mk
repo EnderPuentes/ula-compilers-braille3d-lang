@@ -13,7 +13,8 @@ DESIGNAR_INCLUDEDIR ?= $(DESIGNAR_PREFIX)/include
 DESIGNAR_LIBDIR     ?= $(DESIGNAR_PREFIX)/lib
 
 # --- Compiler ----------------------------------------------------------------
-# g++ and clang++ are both supported: make CXX=clang++
+# The project is built and tested with g++ only. DeSiGNAR must be built with
+# the same compiler and standard library.
 # DeSiGNAR must be built with the same compiler and standard library.
 CXXSTD   ?= c++17
 WARNINGS ?= -Wall -Wextra -Wpedantic

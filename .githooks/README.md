@@ -1,19 +1,19 @@
-# Git hooks
+# Hooks de Git
 
-| Hook | Runs |
+| Hook | Ejecuta |
 | --- | --- |
-| pre-commit, pre-push | branch policy (see below) |
-| commit-msg | Conventional Commits subject, English, plain ASCII |
-| pre-commit | secret grep, `clang-format` check on staged C/C++ files (needs `.clang-format`) |
-| pre-push | `make build`, `make lint`, `make test` (only the targets that exist) |
+| pre-commit, pre-push | política de ramas (ver abajo) |
+| commit-msg | asunto en Conventional Commits, en inglés y en ASCII simple |
+| pre-commit | búsqueda de secretos y comprobación de `clang-format` en los archivos C/C++ en el área de preparación (requiere `.clang-format`) |
+| pre-push | `make build`, `make lint`, `make test` (solo los targets que existan) |
 
-## Branch policy
+## Política de ramas
 
-Only `main`, `develop` and issue branches cut from `develop` are allowed. Issue branches use the name GitHub generates from the issue: `<issue-number>-<slug>` (for example `12-add-lexer`). Create them with `gh issue develop <n>` or from the issue page. Once `develop` exists, an issue branch must descend from it.
+Solo se permiten `main`, `develop` y las ramas de issue creadas desde `develop`. Las ramas de issue usan el nombre que GitHub genera a partir del issue: `<número-del-issue>-<slug>` (por ejemplo `12-add-lexer`). Créalas con `gh issue develop <n>` o desde la página del issue. Una vez que existe `develop`, una rama de issue debe descender de ella.
 
-Tests, lint and build run in pre-push only, never in CI.
+Los tests, el lint y la compilación se ejecutan solo en pre-push, nunca en CI.
 
-Activate once per clone:
+Actívalos una vez por clon:
 
 ```bash
 git config core.hooksPath .githooks

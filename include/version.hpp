@@ -1,9 +1,9 @@
 #ifndef BRAILLE3D_VERSION_HPP
 #define BRAILLE3D_VERSION_HPP
 
-namespace braille3d
+namespace Braille3D
 {
-constexpr char version[] = "0.0.0"; // x-release-please-version
+    constexpr char version[] = "0.0.0"; // x-release-please-version
 }
 
 #endif

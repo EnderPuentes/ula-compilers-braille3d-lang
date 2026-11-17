@@ -6,6 +6,3 @@ DESIGNAR_PREFIX = $(HOME)/.local
 # Distributions that install libraries into lib64:
 # DESIGNAR_LIBDIR = $(DESIGNAR_PREFIX)/lib64
 
-# Build with clang instead of g++ (DESIGNAR_PREFIX must then point to a
-# DeSiGNAR built with clang):
-# CXX = clang++

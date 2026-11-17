@@ -1,88 +1,88 @@
-# Getting started
+# Primeros pasos
 
-This guide takes you from zero to a passing `make test`. It should take about 15 minutes, most of it compiling DeSiGNAR. After it, read [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the rules of the project.
+Esta guía te lleva de cero a un `make test` que pasa. Toma unos 15 minutos, casi todos dedicados a compilar DeSiGNAR. Después, lee [`CONTRIBUTING.md`](../CONTRIBUTING.md) para conocer las reglas del proyecto.
 
-## Quick path
+## Camino rápido
 
-If you already have a C++17 compiler, `make`, CMake, `git` and DeSiGNAR installed:
+Si ya tienes instalados un compilador de C++17, `make`, CMake, `git` y DeSiGNAR:
 
 ```bash
 git clone https://github.com/EnderPuentes/ula-compilers-braille3d-lang.git
 cd ula-compilers-braille3d-lang
 git config core.hooksPath .githooks
-cp config.local.mk.example config.local.mk   # then set DESIGNAR_PREFIX in it
+cp config.local.mk.example config.local.mk   # luego define DESIGNAR_PREFIX en ese archivo
 make test
 ```
 
-If `make test` prints `test: all tests passed`, you are ready. If not, follow the steps below.
+Si `make test` muestra `test: all tests passed`, estás listo. Si no, sigue los pasos de abajo.
 
-## 1. Install the tools
+## 1. Instalar las herramientas
 
-You need a C++ compiler (`g++` 9+ or `clang++` 14+), GNU `make`, `git` and CMake 3.20+. Check them:
+Necesitas un compilador de C++ (`g++` 9+), GNU `make`, `git` y CMake 3.20+. Compruébalos:
 
 ```bash
-g++ --version        # or: clang++ --version
+g++ --version
 make --version
 git --version
 cmake --version
 ```
 
-`clang-format` is optional but recommended. It checks and fixes the code style:
+`clang-format` es opcional pero recomendado. Comprueba y corrige el estilo del código:
 
 ```bash
 clang-format --version
 ```
 
-To open pull requests from the terminal you can also use the GitHub CLI (`gh`). It is optional: everything can be done in the browser.
+Para abrir pull requests desde la terminal también puedes usar la CLI de GitHub (`gh`). Es opcional: todo se puede hacer desde el navegador.
 
-## 2. Install DeSiGNAR
+## 2. Instalar DeSiGNAR
 
-The interpreter uses [DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR), a C++17 library of data structures. It is installed once on your machine, outside this repository. The commands are in the README, section [Install DeSiGNAR](../README.md#install-designar).
+El intérprete usa [DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR), una biblioteca de estructuras de datos en C++17. Se instala una vez en tu máquina, fuera de este repositorio. Los comandos están en el README, sección [Instalar DeSiGNAR](../README.md#instalar-designar).
 
-When it finishes, remember the prefix you used, for example `~/.local`.
+Al terminar, recuerda el prefijo que usaste, por ejemplo `~/.local`.
 
-## 3. Get the code
+## 3. Obtener el código
 
 ```bash
 git clone https://github.com/EnderPuentes/ula-compilers-braille3d-lang.git
 cd ula-compilers-braille3d-lang
 ```
 
-Then turn on the project hooks. They check your commits and your branch names, and they run the checks before a push. Do this once per clone:
+Luego activa los hooks del proyecto. Comprueban tus commits y los nombres de tus ramas, y ejecutan las comprobaciones antes de un push. Hazlo una vez por clon:
 
 ```bash
 git config core.hooksPath .githooks
 ```
 
-## 4. Tell the project where DeSiGNAR is
+## 4. Indicar al proyecto dónde está DeSiGNAR
 
 ```bash
 cp config.local.mk.example config.local.mk
 ```
 
-Open `config.local.mk` and set `DESIGNAR_PREFIX` to the prefix from step 2. This file is not versioned, so your path stays on your machine. More options (including `clang++`) are in the README, section [Configuring the DeSiGNAR path](../README.md#configuring-the-designar-path).
+Abre `config.local.mk` y define `DESIGNAR_PREFIX` con el prefijo del paso 2. Este archivo no se versiona, así que tu ruta se queda en tu máquina. Hay más opciones en el README, sección [Configurar la ruta de DeSiGNAR](../README.md#configurar-la-ruta-de-designar).
 
-## 5. Check that everything works
+## 5. Comprobar que todo funciona
 
 ```bash
 make check-deps
 make test
 ```
 
-`make check-deps` stops at the first missing piece and names it. `make test` builds and runs every test in `test/`.
+`make check-deps` se detiene en la primera pieza que falta y la nombra. `make test` compila y ejecuta cada test de `test/`.
 
-## 6. Build and run
+## 6. Compilar y ejecutar
 
 ```bash
 make build
-./build/braille3d
+./build/braille3d examples/health-center.b3d
 ```
 
-## Your first change
+## Tu primer cambio
 
-1. Pick an issue from the [issue list](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/issues). Ask to be assigned if someone else may be working on it.
-2. Create the branch from the issue (see [CONTRIBUTING.md](../CONTRIBUTING.md#branches)) and switch to it.
-3. Make your change in small steps. Before each commit, run:
+1. Elige un issue de la [lista de issues](https://github.com/EnderPuentes/ula-compilers-braille3d-lang/issues). Pide que te lo asignen si alguien más puede estar trabajando en él.
+2. Crea la rama desde el issue (ver [CONTRIBUTING.md](../CONTRIBUTING.md#ramas)) y cámbiate a ella.
+3. Haz tu cambio en pasos pequeños. Antes de cada commit, ejecuta:
 
    ```bash
    make format
@@ -90,18 +90,20 @@ make build
    make test
    ```
 
-4. Commit with a [Conventional Commit](../CONTRIBUTING.md#commits) message in English, for example `feat(lexer): add token kinds`.
-5. Push the branch and open a pull request into `develop`.
+4. Haz el commit con un mensaje [Conventional Commit](../CONTRIBUTING.md#commits) en inglés, por ejemplo `feat(lexer): add token kinds`.
+5. Sube la rama con push y abre un pull request hacia `develop`.
 
-## When something fails
+## Cuando algo falla
 
-| Message | What it means | Fix |
+Los mensajes de error de las herramientas se muestran tal como aparecen, en inglés.
+
+| Mensaje | Qué significa | Solución |
 | --- | --- | --- |
-| `compiler 'g++' not found` | the compiler is not installed or not in `PATH` | install it, or run `make CXX=clang++ ...` |
-| `DeSiGNAR headers not found in ...` | `DESIGNAR_PREFIX` points to the wrong place | check `config.local.mk` |
-| `libDesignar.a not found in ...` | the library is in `lib64` or in another folder | set `DESIGNAR_LIBDIR` in `config.local.mk` |
-| `did not build with ...` | DeSiGNAR was built with another compiler | build DeSiGNAR again with the same compiler |
-| `'clang-format' not found` | the formatter is not installed | install it, or skip `make format` and `make format-check` |
-| `commit-msg: subject must match ...` | the commit message does not follow Conventional Commits | fix the subject, see [Commits](../CONTRIBUTING.md#commits) |
-| `branch-policy: '...' is not allowed` | the branch name is not `<issue-number>-<slug>` | create the branch from the issue |
-| `pre-push: ... failed; push aborted` | `make build`, `make lint` or `make test` failed | fix the error shown above the message |
+| `compiler 'g++' not found` | el compilador no está instalado o no está en el `PATH` | instálalo |
+| `DeSiGNAR headers not found in ...` | `DESIGNAR_PREFIX` apunta a un lugar incorrecto | revisa `config.local.mk` |
+| `libDesignar.a not found in ...` | la biblioteca está en `lib64` o en otra carpeta | define `DESIGNAR_LIBDIR` en `config.local.mk` |
+| `did not build with ...` | DeSiGNAR se compiló con otro compilador | vuelve a compilar DeSiGNAR con el mismo compilador |
+| `'clang-format' not found` | el formateador no está instalado | instálalo, o no uses `make format` ni `make format-check` |
+| `commit-msg: subject must match ...` | el mensaje del commit no sigue Conventional Commits | corrige el asunto, ver [Commits](../CONTRIBUTING.md#commits) |
+| `branch-policy: '...' is not allowed` | el nombre de la rama no es `<número-del-issue>-<slug>` | crea la rama desde el issue |
+| `pre-push: ... failed; push aborted` | falló `make build`, `make lint` o `make test` | corrige el error que aparece sobre el mensaje |
