@@ -5,20 +5,20 @@ Los releases se automatizan con [release-please](https://github.com/googleapis/r
 ## Cómo funciona
 
 1. El trabajo se integra en `develop`, y `develop` se integra en `main`. Usa un merge commit y no un squash, para que cada Conventional Commit llegue a `main`.
-2. Cuando llegan commits a `main`, el workflow `release-please.yml` abre o actualiza un pull request llamado `chore(release): vX.Y.Z`.
+2. Cuando llegan commits a `main`, el workflow `release-please.yml` abre o actualiza un pull request llamado `chore(release): vX.Y.Z`. **El release no se publica solo**: queda pendiente hasta que alguien integra ese pull request.
 3. Ese pull request actualiza `CHANGELOG.md`, el manifiesto de versión y la versión en `include/version.hpp`.
 4. Al integrarlo se crea la etiqueta `vX.Y.Z` y el release de GitHub con las notas.
 5. El workflow `sync-develop-from-main.yml` integra `main` de vuelta en `develop`, para que `develop` también tenga los cambios del release.
 
 ## Versionado
 
-La versión empieza en `0.0.0`. El primer release se fija en `0.1.0` con `initial-version`: sin una etiqueta previa, release-please propondría `1.0.0`.
+La versión empezó en `0.0.0`. Sin una etiqueta previa, release-please propuso `1.0.0` y ese fue el primer release.
 
 | Commit | Cambio de versión |
 | --- | --- |
-| `fix: ...` | parche (`0.1.0` a `0.1.1`) |
-| `feat: ...` | menor (`0.1.0` a `0.2.0`) |
-| `feat!: ...` o un pie `BREAKING CHANGE:` | mayor, pero menor mientras la versión sea inferior a `1.0.0` |
+| `fix: ...` | parche (`1.0.0` a `1.0.1`) |
+| `feat: ...` | menor (`1.0.0` a `1.1.0`) |
+| `feat!: ...` o un pie `BREAKING CHANGE:` | mayor (`1.0.0` a `2.0.0`) |
 
 La versión la deciden `feat`, `fix` y los cambios incompatibles. Los demás tipos solo aparecen en el changelog.
 
