@@ -149,7 +149,7 @@ Los archivos están en la carpeta `examples/` (ver su [README](../examples/READM
 ### Compilar y ejecutar
 
 * **Requisitos previos:**
-    * Un compilador de C++ compatible con **C++17** (`g++` o `clang++`).
+    * Un compilador de C++ compatible con **C++17** (`g++`).
     * **GNU `make`** y la biblioteca **DeSiGNAR** instalada, según la guía del [README](../README.md).
 
 * **Pasos:** Abre una terminal en la carpeta raíz del repositorio y ejecuta:

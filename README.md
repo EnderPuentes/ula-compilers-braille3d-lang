@@ -55,7 +55,7 @@ Instala estas herramientas **antes** de cualquier otro paso. Este README asume q
 
 | Herramienta | Versión | Para qué se necesita | Comprobación |
 | --- | --- | --- | --- |
-| Compilador de C++ | `g++` 9+ o `clang++` 14+ | compilar el intérprete y DeSiGNAR | `g++ --version` o `clang++ --version` |
+| Compilador de C++ | `g++` 9+ | compilar el intérprete y DeSiGNAR | `g++ --version` |
 | GNU `make` | cualquier versión reciente | compilar el intérprete | `make --version` |
 | `git` | cualquier versión reciente | clonar DeSiGNAR | `git --version` |
 | `clang-format` | 14 o superior (opcional) | `make format`, `make format-check` y el hook `pre-commit` | `clang-format --version` |
@@ -81,17 +81,9 @@ cmake --install build --prefix ~/.local
 
 Esto instala las cabeceras en `~/.local/include` y `libDesignar.a` en `~/.local/lib`.
 
-### Compilador: g++ o clang++
+### Compilador: g++
 
-El compilador verificado hasta ahora es `g++`. `clang++` está previsto, pero todavía no se ha probado.
-
-Ambos compiladores están soportados. DeSiGNAR **debe compilarse con el mismo compilador y la misma biblioteca estándar que el intérprete**; mezclarlos falla al enlazar. Para usar clang, compila DeSiGNAR con él y usa un prefijo distinto:
-
-```bash
-CC=clang CXX=clang++ cmake -S . -B build-clang -DCMAKE_BUILD_TYPE=Release -DDESIGNAR_BUILD_SAMPLES=OFF -DDESIGNAR_BUILD_TESTS=OFF
-cmake --build build-clang --parallel
-cmake --install build-clang --prefix ~/.local/designar-clang
-```
+El intérprete se compila y se prueba solo con `g++`. DeSiGNAR **debe compilarse con el mismo compilador y la misma biblioteca estándar que el intérprete**; mezclarlos falla al enlazar. Por eso DeSiGNAR se compila con `g++`. Si tu sistema usa otro compilador por defecto, antepón `CC=gcc CXX=g++` al primer comando de `cmake` de la sección anterior.
 
 ## Configurar la ruta de DeSiGNAR
 
@@ -102,7 +94,7 @@ La ubicación de la biblioteca se define en un solo lugar, `config.mk`:
 | `DESIGNAR_PREFIX` | `/usr/local` | prefijo de instalación |
 | `DESIGNAR_INCLUDEDIR` | `$(DESIGNAR_PREFIX)/include` | directorio con las cabeceras |
 | `DESIGNAR_LIBDIR` | `$(DESIGNAR_PREFIX)/lib` | directorio con `libDesignar.a` (usa `lib64` donde tu distribución lo requiera) |
-| `CXX` | `g++` | compilador (`clang++` está previsto, aún sin probar) |
+| `CXX` | `g++` | compilador |
 
 Define la ruta de tu máquina en `config.local.mk`, que no se versiona:
 
@@ -114,7 +106,6 @@ Luego edita `DESIGNAR_PREFIX` en ese archivo. También puedes sobrescribir cualq
 
 ```bash
 make test DESIGNAR_PREFIX=$HOME/.local
-make test CXX=clang++ DESIGNAR_PREFIX=$HOME/.local/designar-clang
 ```
 
 La biblioteca se incluye con `-isystem`, de modo que las advertencias dentro de las cabeceras de DeSiGNAR nunca rompen una compilación con `-Werror`.

@@ -18,10 +18,10 @@ Si `make test` muestra `test: all tests passed`, estás listo. Si no, sigue los 
 
 ## 1. Instalar las herramientas
 
-Necesitas un compilador de C++ (`g++` 9+ o `clang++` 14+), GNU `make`, `git` y CMake 3.20+. Compruébalos:
+Necesitas un compilador de C++ (`g++` 9+), GNU `make`, `git` y CMake 3.20+. Compruébalos:
 
 ```bash
-g++ --version        # o: clang++ --version
+g++ --version
 make --version
 git --version
 cmake --version
@@ -60,7 +60,7 @@ git config core.hooksPath .githooks
 cp config.local.mk.example config.local.mk
 ```
 
-Abre `config.local.mk` y define `DESIGNAR_PREFIX` con el prefijo del paso 2. Este archivo no se versiona, así que tu ruta se queda en tu máquina. Hay más opciones (incluido `clang++`) en el README, sección [Configurar la ruta de DeSiGNAR](../README.md#configurar-la-ruta-de-designar).
+Abre `config.local.mk` y define `DESIGNAR_PREFIX` con el prefijo del paso 2. Este archivo no se versiona, así que tu ruta se queda en tu máquina. Hay más opciones en el README, sección [Configurar la ruta de DeSiGNAR](../README.md#configurar-la-ruta-de-designar).
 
 ## 5. Comprobar que todo funciona
 
@@ -99,7 +99,7 @@ Los mensajes de error de las herramientas se muestran tal como aparecen, en ingl
 
 | Mensaje | Qué significa | Solución |
 | --- | --- | --- |
-| `compiler 'g++' not found` | el compilador no está instalado o no está en el `PATH` | instálalo, o ejecuta `make CXX=clang++ ...` |
+| `compiler 'g++' not found` | el compilador no está instalado o no está en el `PATH` | instálalo |
 | `DeSiGNAR headers not found in ...` | `DESIGNAR_PREFIX` apunta a un lugar incorrecto | revisa `config.local.mk` |
 | `libDesignar.a not found in ...` | la biblioteca está en `lib64` o en otra carpeta | define `DESIGNAR_LIBDIR` en `config.local.mk` |
 | `did not build with ...` | DeSiGNAR se compiló con otro compilador | vuelve a compilar DeSiGNAR con el mismo compilador |
