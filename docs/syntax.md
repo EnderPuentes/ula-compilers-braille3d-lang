@@ -6,9 +6,9 @@ Para redactar correctamente un archivo de diseño en `Braille3D-Lang`, se deben 
 * **Bloques Internos (`TEXT` y `BRAILLE`):** Permiten configurar el contenido visual y el relieve táctil en Braille mediante atributos como `CONTENT`, `POSITION`, `ORIENTATION` y `RELIEF`.
 * **Reutilización (`TEMPLATE` y `USE`):** Permiten definir plantillas base con propiedades físicas comunes y heredarlas en diferentes placas.
 * **Restricciones y Reglas:**
-  * **Comentarios (`COMMENT`):** Comienzan con `#` y son omitidos por el compilador. Admiten texto, espacios, símbolos (como `|`), tildes (`á`, `é`, `í`, `ó`, `ú`) y eñes (`ñ`, `Ñ`).
-  * **Dimensiones y Unidades:** Todas las dimensiones numéricas deben incluir de forma estricta la unidad **`mm`** (ej. `50mm`, `0.6mm`).
-  * **Cadenas de Texto (`STRING`):** Soportan de forma nativa las tildes y la letra Ñ (ejemplo: `"Institución De Salud"`, `"FARMACIA PARA NIÑOS"`).
+  * **Comentarios (`COMMENT`):** Comienzan con `#`, llegan hasta el fin de la línea y son omitidos por el compilador. Admiten los mismos caracteres que una cadena. Una comilla doble (`"`) termina el comentario, así que no la uses dentro de uno.
+  * **Dimensiones y Unidades:** Todas las dimensiones numéricas deben incluir de forma estricta la unidad **`mm`** (ej. `50mm`, `0.6mm`). Los números no llevan signo y no pueden terminar en punto.
+  * **Cadenas de Texto (`STRING`):** Van entre comillas dobles y contienen letras, dígitos, espacio, `- _ . , : ; ! ? ( ) / + * = # |`, tildes y la letra Ñ (ejemplo: `"Institución De Salud"`, `"FARMACIA PARA NIÑOS"`). No tienen secuencias de escape.
   * **Bloques y Llaves:** Cada bloque (`PLATE`, `TEXT`, `BRAILLE`, `TEMPLATE`) se abre con `{` y se cierra con `}`, y cada sentencia interna termina con punto y coma (`;`).
 
 ---
