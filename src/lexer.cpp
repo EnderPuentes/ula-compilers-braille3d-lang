@@ -79,7 +79,11 @@ namespace Braille3D
 
         // Ignored tokens: comments and whitespace. tokenize() filters them
         // out; tokenize_raw() keeps them.
-        const std::string comment_char = "(" + str_char + "| )";
+        // A comment accepts the characters of a string plus the symbols of
+        // everyday text. Only the double quote, the braces and the line
+        // breaks end it.
+        const std::string comment_char =
+            "(" + str_char + "|'|$|%|&|@|<|>|[|]|^|~|`|\\\\|¿|¡)";
         lexer_.add_token("COMMENT", "#" + comment_char + "*");
         lexer_.add_token("WS", "( |\t|\n|\r)( |\t|\n|\r)*");
     }

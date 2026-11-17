@@ -19,8 +19,13 @@ DESIGNAR_LIBDIR     ?= $(DESIGNAR_PREFIX)/lib
 CXXSTD   ?= c++17
 WARNINGS ?= -Wall -Wextra -Wpedantic
 
+# Optimization level. Without it the lexer takes about 12 s to start, because
+# the DeSiGNAR templates that build its automata are compiled with this
+# project's flags. Use `make OPTIMIZE=-O0` to debug with gdb.
+OPTIMIZE ?= -O2
+
 # -isystem (not -I) keeps warnings from DeSiGNAR headers out of our build.
 CPPFLAGS += -isystem $(DESIGNAR_INCLUDEDIR)
-CXXFLAGS += -std=$(CXXSTD) $(WARNINGS)
+CXXFLAGS += -std=$(CXXSTD) $(WARNINGS) $(OPTIMIZE)
 LDFLAGS  += -L$(DESIGNAR_LIBDIR)
 LDLIBS   += -lDesignar -pthread
