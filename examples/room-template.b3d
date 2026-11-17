@@ -1,0 +1,45 @@
+# Common template for the room plates
+TEMPLATE room {
+    WIDTH = 50mm;
+    THICKNESS = 4mm;
+    MARGIN = 10mm;
+    MATERIAL = PLA;
+}
+
+# Horizontal plate for the pharmacy
+PLATE {
+    USE room;
+    WIDTH = 120mm;
+    HEIGHT = 50mm;
+    
+    TEXT {
+        CONTENT = "FARMACIA";
+        POSITION = CENTER;
+        ORIENTATION = HORIZONTAL;
+    }
+    
+    BRAILLE {
+        CONTENT = "FARMACIA";
+        RELIEF = 0.6mm;
+        POSITION = CENTER;
+    }
+}
+
+# Plate for the laboratory
+PLATE {
+    USE room;
+    WIDTH = 120mm;
+    HEIGHT = 50mm;
+    
+    TEXT {
+        CONTENT = "LABORATORIO";
+        POSITION = CENTER;
+        ORIENTATION = HORIZONTAL;
+    }
+    
+    BRAILLE {
+        CONTENT = "LABORATORIO";
+        RELIEF = 0.6mm;
+        POSITION = CENTER;
+    }
+}

@@ -1,0 +1,40 @@
+name: Release
+
+# Opens or updates a release pull request when commits reach main.
+# Merging that pull request creates the tag and the GitHub release.
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+# One release run at a time. A new push waits for the running one to finish.
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # The personal access token is a repository secret. Without it the
+      # action would fall back to a token that cannot trigger other workflows.
+      - name: Check the release token
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+        run: |
+          if [ -z "$RELEASE_TOKEN" ]; then
+            echo "::error::The secret RELEASE_PLEASE_TOKEN is not set. See docs/releasing.md."
+            exit 1
+          fi
+
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          config-file: .github/config/release/release-please.config.json
+          manifest-file: .github/config/release/release-please-manifest.json
+          target-branch: main

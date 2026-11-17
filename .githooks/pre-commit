@@ -1,0 +1,28 @@
+#!/bin/sh
+# Cheap checks only: secret grep and clang-format on staged C/C++ files.
+# Build, lint and tests belong to pre-push.
+. "$(dirname "$0")/scripts/branch-policy.sh" || exit 1
+
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$staged" ] && exit 0
+
+# Secret grep over added lines.
+if git diff --cached -U0 | grep -E '^\+' | grep -Ev '^\+\+\+' |
+  grep -Eq '(AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|sk_live_[0-9A-Za-z]{16,}|gh[pousr]_[0-9A-Za-z]{30,}|xox[baprs]-[0-9A-Za-z-]{10,})'; then
+  echo "pre-commit: possible secret in staged changes. Remove it or rotate it." >&2
+  exit 1
+fi
+
+# Format check on staged C/C++ files, only when the project defines a style.
+if [ -f .clang-format ]; then
+  if command -v clang-format >/dev/null 2>&1; then
+    git diff --cached --name-only --diff-filter=ACM -- \
+      '*.c' '*.cc' '*.cpp' '*.cxx' '*.h' '*.hh' '*.hpp' '*.hxx' |
+    while IFS= read -r f; do
+      clang-format --dry-run --Werror "$f" || exit 1
+    done || { echo "pre-commit: clang-format failed; run 'make format' or clang-format -i." >&2; exit 1; }
+  else
+    echo "pre-commit: clang-format not found, format check skipped." >&2
+  fi
+fi
+exit 0

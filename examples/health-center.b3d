@@ -1,0 +1,22 @@
+PLATE {
+    # Dimensions
+    WIDTH = 50mm;
+    HEIGHT = 120mm;
+    THICKNESS = 4mm;
+    MARGIN = 10mm;
+    MATERIAL = PLA;
+    
+    # Visible text
+    TEXT {
+        CONTENT = "CENTRO DE SALUD";
+        POSITION = CENTER;
+        ORIENTATION = VERTICAL;
+    }
+    
+    # Braille relief
+    BRAILLE {
+        CONTENT = "CENTRO DE SALUD";
+        RELIEF = 0.6mm;
+        POSITION = CENTER;
+    }
+}

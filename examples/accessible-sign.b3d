@@ -1,0 +1,42 @@
+# Plate in PETG with text and braille on opposite sides.
+# The strings use accented vowels and the letter n with tilde to exercise
+# the STRING rule.
+PLATE {
+    WIDTH = 150mm;
+    HEIGHT = 60mm;
+    THICKNESS = 3.5mm;
+    MARGIN = 8mm;
+    MATERIAL = PETG;
+
+    TEXT {
+        CONTENT = "Niños y Niñas";
+        POSITION = LEFT;
+        ORIENTATION = HORIZONTAL;
+    }
+
+    BRAILLE {
+        CONTENT = "Niños y Niñas";
+        RELIEF = 0.5mm;
+        POSITION = RIGHT;
+    }
+}
+
+PLATE {
+    WIDTH = 100mm;
+    HEIGHT = 100mm;
+    THICKNESS = 4mm;
+    MARGIN = 10mm;
+    MATERIAL = PLA;
+
+    TEXT {
+        CONTENT = "Información Pública";
+        POSITION = TOP;
+        ORIENTATION = HORIZONTAL;
+    }
+
+    BRAILLE {
+        CONTENT = "Información Pública";
+        RELIEF = 0.6mm;
+        POSITION = BOTTOM;
+    }
+}
