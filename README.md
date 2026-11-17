@@ -21,28 +21,9 @@ El analizador léxico es la primera etapa del intérprete. Lee el texto de un ar
 - El operador `=` y los delimitadores `{ } ( ) , ;`.
 - Comentarios de una línea con `#` y espacios en blanco, que se descartan antes de entregar los tokens.
 
-**Cómo funciona**
-
-La clase `LexerB3D` registra todas las reglas en su constructor. `tokenize()` devuelve los tokens sin espacios ni comentarios, y `tokenize_raw()` devuelve todos, para depuración. `Designar::Lexer` consume en cada posición el lexema más largo que acepte alguna regla y, si dos reglas empatan, gana la registrada primero. Por eso las palabras reservadas se registran antes que los identificadores. DeSiGNAR no tiene clases de caracteres como `[a-z]` ni negaciones como `[^"]`, así que los rangos se escriben como alternaciones explícitas.
-
-**Estructura**
-
-| Archivo | Contenido |
-| --- | --- |
-| [`include/braille3d/lexer.hpp`](include/braille3d/lexer.hpp) | declaración de la clase `LexerB3D` |
-| [`src/lexer.cpp`](src/lexer.cpp) | reglas de los tokens y modos de escaneo |
-| [`src/main.cpp`](src/main.cpp) | programa que imprime los tokens de un archivo |
-| [`examples/`](examples/README.md) | programas `.b3d` de prueba |
-
-**Cómo probarlo**
-
-```bash
-make build
-./build/braille3d examples/health-center.b3d
-```
-
 **Para más información**
 
+- [Compilar y ejecutar](#compilar-y-ejecutar): cómo escanear un programa `.b3d`.
 - [Implementación del analizador léxico](docs/lexer.md): clase, reglas, resolución de conflictos y adaptación a DeSiGNAR.
 - [Sintaxis del lenguaje](docs/syntax.md): cómo escribir un archivo `.b3d`.
 - [Ejemplos](examples/README.md): qué prueba cada programa.

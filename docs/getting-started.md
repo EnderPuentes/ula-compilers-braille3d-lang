@@ -1,6 +1,6 @@
 # Primeros pasos
 
-Esta guía te lleva de cero a un `make test` que pasa. Toma unos 15 minutos, casi todos dedicados a compilar DeSiGNAR. Después, lee [`CONTRIBUTING.md`](../CONTRIBUTING.md) para conocer las reglas del proyecto.
+Esta guía te lleva de cero a un `make test` que pasa. Después, lee [`CONTRIBUTING.md`](../CONTRIBUTING.md) para conocer las reglas del proyecto.
 
 ## Camino rápido
 
