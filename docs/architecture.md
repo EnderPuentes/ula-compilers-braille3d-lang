@@ -36,28 +36,10 @@ El intérprete usa [DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR), una bibliote
 
 ## Compilación y calidad
 
-- `make build` compila el intérprete en `build/braille3d`.
-- `make lint` compila cada archivo con las advertencias tratadas como errores.
-- `make format-check` comprueba el estilo definido en `.clang-format`.
-- `make test` compila y ejecuta cada `test/*.test.cpp`.
-
-El hook `pre-push` ejecuta `make build`, `make lint` y `make test`.
-
-Los releases se automatizan con release-please (`.github/workflows/release-please.yml`), y `develop` se mantiene al día con `main` después de cada release (`.github/workflows/sync-develop-from-main.yml`). Ver `docs/releasing.md`.
-
-## Cómo se agregan las siguientes etapas
-
-Hoy solo existe el lexer (`include/braille3d/lexer.hpp`, `src/lexer.cpp`) y `src/main.cpp`. Ninguno de los módulos siguientes existe todavía; esta sección es un plan, no código.
-
-- Cada etapa es un par `include/braille3d/<módulo>.hpp` y `src/<módulo>.cpp`.
-- La salida del lexer, un `Designar::DynArray<Designar::Token>`, es la entrada del parser: `parse()` de `llparser.hpp` recibe un `DynArray<Token>`.
-- `Diagnostic` y `DiagnosticSink` (futuros): errores y registros con un formato normalizado, que todas las etapas reportan al mismo lugar.
-- `Source` (futuro): carga el archivo y convierte desplazamientos en bytes a línea y columna, porque DeSiGNAR informa las posiciones como desplazamientos en bytes.
-- `Interpreter` (futuro): clase que ejecuta las etapas en orden y reporta al sink.
-- `main.cpp` solo carga el archivo (por defecto `examples/health-center.b3d`), crea el `Interpreter` e imprime los diagnósticos.
+Los targets de `make` están en el [README](../README.md#targets-de-make). El hook `pre-push` ejecuta `make build`, `make lint` y `make test`. Los releases se automatizan con release-please; ver [`releasing.md`](releasing.md).
 
 ## Puntos abiertos
 
 - La especificación del lenguaje: sintaxis y significado de braille3d.
-- Si el lexer y el parser usan el módulo de compiladores de DeSiGNAR o se escriben a mano.
+- Si el parser usa el módulo de compiladores de DeSiGNAR (`llparser.hpp`) o se escribe a mano. El lexer ya usa `Designar::Lexer`.
 - Las etapas posteriores al parser.
