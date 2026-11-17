@@ -1,6 +1,6 @@
 # Cómo contribuir
 
-Gracias por ayudar con el intérprete de braille3d. Esta página reúne las reglas del proyecto. Para preparar tu máquina primero, lee [`docs/getting-started.md`](docs/getting-started.md).
+Reglas del proyecto. Para preparar tu máquina, lee primero [`docs/getting-started.md`](docs/getting-started.md).
 
 ## Flujo de trabajo
 
@@ -67,15 +67,7 @@ make test
 | `make lint` | compila cada archivo con las advertencias como errores |
 | `make test` | compila y ejecuta cada `test/*.test.cpp` |
 
-Los hooks de Git en `.githooks/` ejecutan estas comprobaciones por ti:
-
-| Hook | Ejecuta |
-| --- | --- |
-| `commit-msg` | comprueba el formato del mensaje del commit |
-| `pre-commit` | busca secretos y comprueba el formato de los archivos C++ en el área de preparación |
-| `pre-push` | ejecuta `make build`, `make lint` y `make test` y detiene el push si alguno falla |
-
-Las comprobaciones se ejecutan en tu máquina y no en CI, así que los hooks deben estar activos: `git config core.hooksPath .githooks`.
+Los hooks de `.githooks/` ejecutan estas comprobaciones por ti (ver [`.githooks/README.md`](.githooks/README.md)). Se ejecutan en tu máquina y no en CI, así que deben estar activos: `git config core.hooksPath .githooks`.
 
 ## Estilo del código
 
@@ -97,15 +89,15 @@ int main()
 }
 ```
 
-Un cambio que añade comportamiento debe añadir o actualizar un test. La guía completa, con lo que cubre cada prueba y cómo ejecutar una sola, está en [`docs/testing.md`](docs/testing.md).
+Un cambio que añade comportamiento añade o actualiza un test. La guía completa está en [`docs/testing.md`](docs/testing.md).
 
 ## Pull requests
 
 - Abre el pull request hacia `develop`.
-- El título y la descripción se escriben en inglés. El título es corto y dice qué cambia.
-- Enlaza el issue en la descripción, por ejemplo `Part of #12`.
+- El título se escribe en inglés y es corto: dice qué cambia. La descripción se escribe en español.
+- Enlaza el issue en la descripción, por ejemplo `Cierra #12`.
 - Explica qué cambió y cómo lo comprobaste (qué comandos de `make` ejecutaste).
-- Mantenlo centrado en un solo issue. Si necesita más commits, no hay problema; si necesita más issues, divídelo.
+- Un pull request resuelve un solo issue.
 
 ## Releases
 
@@ -116,7 +108,3 @@ Los releases son automáticos y usan los mensajes de los commits. No edites a ma
 - la línea de versión de `include/version.hpp` (tiene un comentario `x-release-please-version`; consérvalo)
 
 El proceso está en [`docs/releasing.md`](docs/releasing.md).
-
-## Preguntas
-
-Abre un issue o pregunta en el pull request.

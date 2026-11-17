@@ -12,7 +12,7 @@ Los releases se automatizan con [release-please](https://github.com/googleapis/r
 
 ## Versionado
 
-La versión empieza en `0.0.0`. Se espera que el primer release sea `0.1.0`.
+La versión empieza en `0.0.0`. El primer release se fija en `0.1.0` con `initial-version`: sin una etiqueta previa, release-please propondría `1.0.0`.
 
 | Commit | Cambio de versión |
 | --- | --- |
